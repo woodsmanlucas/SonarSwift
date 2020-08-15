@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  ClassifiedsView.swift
 //  Sonar Music
 //
 //  Created by Lucas Johnson on 2020-08-15.
@@ -8,14 +8,14 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ClassifiedsView: View {
     var body: some View {
-        Text("Hello, World!")
+        Text("This is coming bear with me")
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct ClassifiedsView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ClassifiedsView()
     }
 }
