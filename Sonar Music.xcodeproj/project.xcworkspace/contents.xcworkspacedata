@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Sonar Music.xcodeproj">
+      location = "group:/Users/lucas/Developer/Sonar Music/Sonar Music/Views/SplashPage.swift">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

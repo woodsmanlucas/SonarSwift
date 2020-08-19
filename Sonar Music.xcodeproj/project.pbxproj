@@ -9,27 +9,29 @@
 /* Begin PBXBuildFile section */
 		A0AA9C5324E8283000DF3A6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C5224E8283000DF3A6C /* AppDelegate.swift */; };
 		A0AA9C5524E8283000DF3A6C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C5424E8283000DF3A6C /* SceneDelegate.swift */; };
-		A0AA9C5724E8283000DF3A6C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C5624E8283000DF3A6C /* ContentView.swift */; };
 		A0AA9C5924E8283300DF3A6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0AA9C5824E8283300DF3A6C /* Assets.xcassets */; };
 		A0AA9C5C24E8283300DF3A6C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0AA9C5B24E8283300DF3A6C /* Preview Assets.xcassets */; };
 		A0AA9C5F24E8283300DF3A6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0AA9C5D24E8283300DF3A6C /* LaunchScreen.storyboard */; };
-		A0AA9C6724E834B200DF3A6C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C6624E834B200DF3A6C /* Login.swift */; };
+		A0AA9C6724E834B200DF3A6C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C6624E834B200DF3A6C /* LoginView.swift */; };
 		A0AA9C6E24E853BA00DF3A6C /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C6D24E853BA00DF3A6C /* RegisterView.swift */; };
 		A0AA9C7024E8544500DF3A6C /* ClassifiedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C6F24E8544500DF3A6C /* ClassifiedsView.swift */; };
+		A0AA9C7424EAC2A300DF3A6C /* SplashPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C7324EAC2A300DF3A6C /* SplashPage.swift */; };
+		A0AA9C7824EAC6D500DF3A6C /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C7724EAC6D500DF3A6C /* JWT.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A0AA9C4F24E8283000DF3A6C /* Sonar Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sonar Music.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0AA9C5224E8283000DF3A6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0AA9C5424E8283000DF3A6C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A0AA9C5624E8283000DF3A6C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		A0AA9C5824E8283300DF3A6C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A0AA9C5B24E8283300DF3A6C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A0AA9C5E24E8283300DF3A6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0AA9C6024E8283300DF3A6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A0AA9C6624E834B200DF3A6C /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		A0AA9C6624E834B200DF3A6C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A0AA9C6D24E853BA00DF3A6C /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		A0AA9C6F24E8544500DF3A6C /* ClassifiedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifiedsView.swift; sourceTree = "<group>"; };
+		A0AA9C7324EAC2A300DF3A6C /* SplashPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SplashPage.swift; path = "/Users/lucas/Developer/Sonar Music/Sonar Music/Views/SplashPage.swift"; sourceTree = "<absolute>"; };
+		A0AA9C7724EAC6D500DF3A6C /* JWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWT.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			children = (
 				A0AA9C5224E8283000DF3A6C /* AppDelegate.swift */,
 				A0AA9C5424E8283000DF3A6C /* SceneDelegate.swift */,
+				A0AA9C7224EAC0E500DF3A6C /* ViewModels */,
 				A0AA9C6A24E8353400DF3A6C /* Views */,
 				A0AA9C5824E8283300DF3A6C /* Assets.xcassets */,
 				A0AA9C5D24E8283300DF3A6C /* LaunchScreen.storyboard */,
@@ -84,12 +87,20 @@
 		A0AA9C6A24E8353400DF3A6C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A0AA9C5624E8283000DF3A6C /* ContentView.swift */,
-				A0AA9C6624E834B200DF3A6C /* Login.swift */,
-				A0AA9C6D24E853BA00DF3A6C /* RegisterView.swift */,
+				A0AA9C7324EAC2A300DF3A6C /* SplashPage.swift */,
+				A0AA9C6624E834B200DF3A6C /* LoginView.swift */,
 				A0AA9C6F24E8544500DF3A6C /* ClassifiedsView.swift */,
+				A0AA9C6D24E853BA00DF3A6C /* RegisterView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		A0AA9C7224EAC0E500DF3A6C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A0AA9C7724EAC6D500DF3A6C /* JWT.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,11 +175,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0AA9C5324E8283000DF3A6C /* AppDelegate.swift in Sources */,
+				A0AA9C7424EAC2A300DF3A6C /* SplashPage.swift in Sources */,
 				A0AA9C7024E8544500DF3A6C /* ClassifiedsView.swift in Sources */,
 				A0AA9C6E24E853BA00DF3A6C /* RegisterView.swift in Sources */,
 				A0AA9C5524E8283000DF3A6C /* SceneDelegate.swift in Sources */,
-				A0AA9C5724E8283000DF3A6C /* ContentView.swift in Sources */,
-				A0AA9C6724E834B200DF3A6C /* Login.swift in Sources */,
+				A0AA9C6724E834B200DF3A6C /* LoginView.swift in Sources */,
+				A0AA9C7824EAC6D500DF3A6C /* JWT.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

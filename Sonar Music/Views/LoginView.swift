@@ -1,22 +1,20 @@
 //
-//  RegisterView.swift
+//  Login.swift
 //  Sonar Music
 //
 //  Created by Lucas Johnson on 2020-08-15.
 //  Copyright © 2020 Sonar Music. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 
-struct RegisterView: View {
+struct LoginView: View {
     @State var email: String = ""
-    @State var username: String = ""
-    @State var firstName: String = ""
-    @State var lastName: String = ""
     @State var password: String = ""
     @ObservedObject var viewModel: JWT
+    var pushed = false
     
-   
      private func isUserInformationValid() -> Bool {
             if email.isEmpty {
                 return false
@@ -30,27 +28,29 @@ struct RegisterView: View {
         }
         
         var body: some View {
+            VStack{
             Form{
                 TextField("Email", text: $email)
-                TextField("UserName", text: $username)
-                TextField("firstName", text: $firstName)
-                TextField("lastName", text: $lastName)
                 SecureField("Password", text: $password)
                 
                 if self.isUserInformationValid() {
                     Button(action: {
-                        self.viewModel.register(email: self.email, username: self.username, firstName: self.firstName, lastName: self.lastName, password: self.password)
+                        self.viewModel.login(self.email, self.password)
                     }, label: {
-                        Text("Register")
+                        Text("Log in")
                     })
                 }
             }
         .navigationBarTitle("Login")
+                NavigationLink(destination: ClassifiedsView(), isActive: $viewModel.pushed) { EmptyView() }
+
         }
     }
+}
 
-struct RegisterView_Previews: PreviewProvider {
+
+struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        RegisterView(viewModel: JWT())
+        LoginView(viewModel: JWT())
     }
 }

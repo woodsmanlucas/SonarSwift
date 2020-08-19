@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  SplashPage.swift
 //  Sonar Music
 //
 //  Created by Lucas Johnson on 2020-08-15.
@@ -8,11 +8,13 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct SplashPage: View {
+    let LoginAndRegister = JWT()
+
     var body: some View {
         VStack{
-            RectangleView("Login"){Login()}
-            RectangleView("Register"){RegisterView()}
+            RectangleView("Login"){LoginView(viewModel: self.LoginAndRegister)}
+            RectangleView("Register"){RegisterView(viewModel: self.LoginAndRegister)}
             NavigationLink(destination: ClassifiedsView()){
             Text("View Classifieds without logging in")
             }
@@ -43,6 +45,6 @@ struct RectangleView<ItemView>: View where ItemView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        SplashPage()
     }
 }
