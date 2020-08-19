@@ -10,12 +10,13 @@ import SwiftUI
 
 struct SplashPage: View {
     let LoginAndRegister = JWT()
+    let Classifieds = ClassifiedsViewModel()
 
     var body: some View {
         VStack{
             RectangleView("Login"){LoginView(viewModel: self.LoginAndRegister)}
             RectangleView("Register"){RegisterView(viewModel: self.LoginAndRegister)}
-            NavigationLink(destination: ClassifiedsView()){
+            NavigationLink(destination: ClassifiedsView(viewModel: Classifieds)){
             Text("View Classifieds without logging in")
             }
         }.padding(40)

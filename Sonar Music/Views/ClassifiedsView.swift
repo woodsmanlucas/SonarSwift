@@ -9,13 +9,20 @@
 import SwiftUI
 
 struct ClassifiedsView: View {
+    @ObservedObject var viewModel: ClassifiedsViewModel
+
+    
     var body: some View {
-        Text("This is coming bear with me")
+        ScrollView{
+                ForEach(self.viewModel.classifieds, id: \._id, content: {classified in
+            Text("This is coming bear with me")
+            })
+        }.onAppear{self.viewModel.GetClassifieds()}
     }
 }
 
 struct ClassifiedsView_Previews: PreviewProvider {
     static var previews: some View {
-        ClassifiedsView()
+        ClassifiedsView(viewModel: ClassifiedsViewModel())
     }
 }
