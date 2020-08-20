@@ -13,11 +13,27 @@ struct ClassifiedsView: View {
 
     
     var body: some View {
-        ScrollView{
-                ForEach(self.viewModel.classifieds, id: \._id, content: {classified in
-            Text("This is coming bear with me")
+        ScrollView(.vertical){
+            VStack{
+            ForEach(self.viewModel.classifieds, id: \._id, content: {classified in
+                    ClassifiedView(classified: classified)
             })
+            }.frame(maxWidth: .infinity)
         }.onAppear{self.viewModel.GetClassifieds()}
+    }
+}
+
+struct ClassifiedView: View {
+    var classified: Classified
+    
+    var body: some View {
+        ZStack{
+            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
+            VStack{
+                Text(classified.title).bold()
+                Text(classified.description)
+            }
+        }.frame(width: 400, height: 150)
     }
 }
 
