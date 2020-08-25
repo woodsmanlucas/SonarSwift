@@ -15,8 +15,11 @@ struct ClassifiedsView: View {
     var body: some View {
         ScrollView(.vertical){
             VStack{
+                NavigationLink(destination: ClassifiedMapView()) {
+                    Text("View the Map")
+                }
             ForEach(self.viewModel.classifieds, id: \._id, content: {classified in
-                    ClassifiedView(classified: classified)
+                    ClassifiedView(classified)
             })
             }.frame(maxWidth: .infinity)
         }.onAppear{self.viewModel.GetClassifieds()}
@@ -25,15 +28,39 @@ struct ClassifiedsView: View {
 
 struct ClassifiedView: View {
     var classified: Classified
+    var pictureUrl: URL?
+        
+    init(_ classified: Classified) {
+        self.classified = classified
+        if(classified.pictures.count > 0){
+            self.pictureUrl = URL(string: classified.pictures[0])!
+        }
+        }
     
     var body: some View {
-        ZStack{
+        guard let url = pictureUrl else {
+            return AnyView(ZStack{
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
             VStack{
                 Text(classified.title).bold()
                 Text(classified.description)
+                }
+            }.frame(width: 350, height: 150))
+        }
+        
+        return AnyView(ZStack{
+            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
+            NavigationLink(destination: SingleClassifiedView(classified)){
+            VStack{
+                Text(classified.title).bold()
+                Text(classified.description)
+                    AsyncImage(
+                        url: url,
+                        placeholder: Text("Loading ...")
+                    ).aspectRatio(contentMode: .fit)
             }
-        }.frame(width: 400, height: 150)
+            }.buttonStyle(PlainButtonStyle())        }.frame(width: 350, height: 150)
+        )
     }
 }
 
