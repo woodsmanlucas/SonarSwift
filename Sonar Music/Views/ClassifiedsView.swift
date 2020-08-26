@@ -15,14 +15,14 @@ struct ClassifiedsView: View {
     var body: some View {
         ScrollView(.vertical){
             VStack{
-                NavigationLink(destination: ClassifiedMapView()) {
+                NavigationLink(destination: ClassifiedMapView(classifieds: self.viewModel.classifieds)) {
                     Text("View the Map")
                 }
             ForEach(self.viewModel.classifieds, id: \._id, content: {classified in
                     ClassifiedView(classified)
             })
             }.frame(maxWidth: .infinity)
-        }.onAppear{self.viewModel.GetClassifieds()}
+        }.onAppear{self.viewModel.GetClassifieds()}        .navigationBarTitle("Classifieds")
     }
 }
 
