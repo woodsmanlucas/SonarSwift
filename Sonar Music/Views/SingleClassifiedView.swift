@@ -21,13 +21,14 @@ struct SingleClassifiedView: View {
     
     var body: some View {
         guard let url = pictureUrl else {
-                   return AnyView(ZStack{
-                   RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
+                   return AnyView(
                    VStack{
                        Text(classified.title).bold()
                        Text(classified.description)
-                       }
-                   }.frame(width: 350, height: 150))
+                    NavigationLink(destination: MessageUser(userId: classified.user[0]!._id)){
+                        Text("Message this user")
+                    }
+                       }.navigationBarTitle("Classified")            )
                }
                
                return AnyView(
@@ -38,7 +39,7 @@ struct SingleClassifiedView: View {
                                url: url,
                                placeholder: Text("Loading ...")
                            ).aspectRatio(contentMode: .fit)
-                   }
+                   }.navigationBarTitle("Classified")
                )
     }
 }

@@ -14,7 +14,7 @@ class JWT: ObservableObject {
     
     func login(_ email: String, _ password: String) {
         // Prepare URL
-        let url = URL(string: "http://www.sonarmusic.social/api/auth/login")
+        let url = URL(string: "https://www.sonarmusic.social/api/auth/login")
         guard let requestUrl = url else { fatalError() }
         
         // Prepare URL Request Object

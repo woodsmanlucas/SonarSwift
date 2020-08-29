@@ -26,6 +26,7 @@ struct Classified: Codable {
 }
 
 struct User: Codable {
+    var _id: String
     var username: String
     var firstName: String
     var lastName: String
@@ -39,7 +40,7 @@ class ClassifiedsViewModel: ObservableObject {
 
     func GetClassifieds() {
         // Prepare URL
-        let url = URL(string: "http://www.sonarmusic.social/api/classifieds")
+        let url = URL(string: "https://www.sonarmusic.social/api/classifieds")
         guard let requestUrl = url else { fatalError() }
     
         // Prepare URL Request Object
