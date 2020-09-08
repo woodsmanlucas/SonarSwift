@@ -11,12 +11,14 @@ import SwiftUI
 struct SingleClassifiedView: View {
     var classified: Classified
     var pictureUrl: URL?
-        
-    init(_ classified: Classified) {
+    @ObservedObject var jwt: JWT
+    
+    init(_ classified: Classified, jwt: JWT) {
         self.classified = classified
         if(classified.pictures.count > 0){
             self.pictureUrl = URL(string: classified.pictures[0])!
         }
+        self.jwt = jwt
         }
     
     var body: some View {
@@ -24,9 +26,20 @@ struct SingleClassifiedView: View {
                    return AnyView(
                    VStack{
                        Text(classified.title).bold()
-                       Text(classified.description)
-                    NavigationLink(destination: MessageUser(userId: classified.user[0]!._id)){
+                        Text(classified.description)
+                    if jwt.token != nil {
+//                    if false {
+                        NavigationLink(destination: MessageUserView(userId: classified.user[0]!._id, jwt: jwt)){
                         Text("Message this user")
+                        }
+                    }
+                    else{
+                        NavigationLink(destination: LoginView(viewModel: jwt, messageUser: classified.user[0]!._id) ) {
+                            Text("Login to Message this user")
+                            }
+                        NavigationLink(destination: RegisterView(viewModel: jwt, messageUser: classified.user[0]!._id)){
+                          Text("Register to Message this user")
+                        }
                     }
                        }.navigationBarTitle("Classified")            )
                }

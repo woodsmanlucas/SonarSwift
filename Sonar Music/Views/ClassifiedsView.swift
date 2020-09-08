@@ -18,9 +18,8 @@ struct ClassifiedsView: View {
                 NavigationLink(destination: ClassifiedMapView(classifieds: self.viewModel.classifieds)) {
                     Text("View the Map")
                 }
-                ClassifiedView()
             ForEach(self.viewModel.classifieds, id: \._id, content: {classified in
-                ClassifiedView()
+                ClassifiedView(classified)
             })
             }.frame(maxWidth: .infinity)
         }.onAppear{self.viewModel.GetClassifieds()}        .navigationBarTitle("Classifieds")
@@ -28,14 +27,11 @@ struct ClassifiedsView: View {
 }
 
 struct ClassifiedView: View {
-    var user = User(_id: "asdf", username: "Asdf", firstName: "Lucas", lastName: "Johnson", lat: 49.2577143, lng: -123.1939435)
     var classified: Classified
     var pictureUrl: URL?
         
-    init(){
-//    init(_ classified: Classified) {
-//        self.classified = classified
-        self.classified = Classified(_id: "asdfsadf", datePosted: 12, pictures: [], tags: [], title: "Hard Coded Please Remove me", description: "This is a hard coded classified", type: "Buy", yearsOfExperience: "1", user: [self.user])
+    init(_ classified: Classified) {
+        self.classified = classified
         if(classified.pictures.count > 0){
             self.pictureUrl = URL(string: classified.pictures[0])!
         }
@@ -43,7 +39,7 @@ struct ClassifiedView: View {
     
     var body: some View {
         guard let url = pictureUrl else {
-            return AnyView(NavigationLink(destination: SingleClassifiedView(classified)){
+            return AnyView(NavigationLink(destination: SingleClassifiedView(classified, jwt: JWT())){
                 ZStack{
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
             VStack{
@@ -56,7 +52,8 @@ struct ClassifiedView: View {
         }
         
         return AnyView(
-            NavigationLink(destination: SingleClassifiedView(classified)){
+            NavigationLink(destination: SingleClassifiedView(classified, jwt: JWT())){
+                ZStack{
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
             
             VStack{
@@ -67,7 +64,7 @@ struct ClassifiedView: View {
                         placeholder: Text("Loading ...")
                     ).aspectRatio(contentMode: .fit)
             }
-                
+                }
             }.buttonStyle(PlainButtonStyle()).frame(width: 350, height: 150)
         )
     }
@@ -77,4 +74,4 @@ struct ClassifiedsView_Previews: PreviewProvider {
     static var previews: some View {
         ClassifiedsView(viewModel: ClassifiedsViewModel())
     }
-}
+ }

@@ -13,6 +13,7 @@ struct LoginView: View {
     @State var email: String = ""
     @State var password: String = ""
     @ObservedObject var viewModel: JWT
+    var messageUser: String = ""
     let Classifieds = ClassifiedsViewModel()
     
      private func isUserInformationValid() -> Bool {
@@ -42,8 +43,16 @@ struct LoginView: View {
                 }
             }
         .navigationBarTitle("Login")
-                NavigationLink(destination: ClassifiedsView(viewModel: Classifieds), isActive: $viewModel.pushed) { EmptyView() }
-
+                if messageUser == "" {
+                
+                NavigationLink(destination: SplashPage(), isActive: $viewModel.pushed) { EmptyView() }
+                    
+                }
+                else{
+                    
+                NavigationLink(destination: MessageUserView(userId: messageUser, jwt: viewModel), isActive: $viewModel.pushed) { EmptyView() }
+                    
+                }
         }
     }
 }
