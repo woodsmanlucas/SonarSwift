@@ -10,8 +10,8 @@ import Combine
 import SwiftUI
 
 struct LoginView: View {
-    @State var email: String = ""
-    @State var password: String = ""
+    @State var email: String = "woodsman.lucas@gmail.com"
+    @State var password: String = "P@ssw0rd"
     @ObservedObject var viewModel: JWT
     var messageUser: String = ""
     let Classifieds = ClassifiedsViewModel()

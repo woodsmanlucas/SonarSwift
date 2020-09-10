@@ -15,11 +15,13 @@ struct SplashPage: View {
     var body: some View {
         VStack{
 //            if true {
-            if self.LoginAndRegister.token != nil {
+            if self.LoginAndRegister.token != nil  && self.LoginAndRegister.userId != nil{
                     VStack{
                     RectangleView("View all Messages"){MessagesView()}
                         RectangleView("Classifieds List"){ClassifiedsView(viewModel: self.Classifieds)}
                         RectangleView("Classifieds Map"){ClassifiedMapView(classifieds: self.Classifieds.classifieds)}
+                        RectangleView("My Profile"){ProfileView(profile: ProfileViewModel(self.LoginAndRegister.userId!, jwt: self.LoginAndRegister))}
+
                     }
             }
             else{

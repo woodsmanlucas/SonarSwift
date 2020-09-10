@@ -10,6 +10,7 @@ import SwiftUI
 
 class JWT: ObservableObject {
     @Published private(set) var token: String?
+    @Published private(set) var userId: String?
     @Published var pushed = false
     
     func login(_ email: String, _ password: String) {
@@ -49,6 +50,12 @@ class JWT: ObservableObject {
                                 self.pushed = true
                             }
                         }
+                        if let user = json["user"] as? String{
+                             print(user)
+                             DispatchQueue.main.async {
+                                 self.userId = user
+                             }
+                         }
                     }
                 } catch let error as NSError {
                     print("Failed to load: \(error.localizedDescription)")
