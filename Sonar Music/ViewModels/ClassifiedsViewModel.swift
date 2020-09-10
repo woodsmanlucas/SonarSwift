@@ -8,7 +8,12 @@
 
 import SwiftUI
 
-struct Classified {
+struct JsonResponse: Codable {
+    var success: Bool
+    var classifieds: [Classified]
+}
+
+struct Classified: Codable {
     var _id: String
     var datePosted: Int
     var pictures: [String]
@@ -16,18 +21,15 @@ struct Classified {
     var title: String
     var description: String
     var type: String
-    var yearsOfExperience: String
-    var userId: String
-    var user: User
+    var yearsOfExperience: String?
+    var user: [User?]
 }
 
-struct User {
+struct User: Codable {
     var _id: String
-    var experience: [Int]
-    var instrumentsPlayed: [String]
-    var links: [String]
-    var genre: [String]
-    var username: [String]
+    var username: String
+    var firstName: String
+    var lastName: String
     var lat: Float
     var lng: Float
 }
@@ -38,7 +40,7 @@ class ClassifiedsViewModel: ObservableObject {
 
     func GetClassifieds() {
         // Prepare URL
-        let url = URL(string: "http://www.sonarmusic.social/api/classifieds")
+        let url = URL(string: "https://www.sonarmusic.social/api/classifieds")
         guard let requestUrl = url else { fatalError() }
     
         // Prepare URL Request Object
@@ -57,16 +59,15 @@ class ClassifiedsViewModel: ObservableObject {
             // Convert HTTP Response Data to a String
             if let data = data, let dataString = String(data: data, encoding: .utf8) {
                 print("Response data string:\n \(dataString)")
-            
+                print(data)
             do{
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [Classified] {
-                    if let classifieds = json["classifieds"] as? [Classified]{
-                        print("addsf")
-                        DispatchQueue.main.async {
-                            self.classifieds = classifieds
-                            self.loaded = true
-                        }
-                        print(self.classifieds)
+                       let classifiedData = try JSONDecoder().decode(JsonResponse.self, from: data)
+                print(classifiedData.classifieds)
+                if classifiedData.success{
+                    DispatchQueue.main.async {
+                        self.classifieds = classifiedData.classifieds
+                        print("classified \(self.classifieds)")
+
                     }
                 }
             } catch let error as NSError {

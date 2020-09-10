@@ -13,11 +13,60 @@ struct ClassifiedsView: View {
 
     
     var body: some View {
-        ScrollView{
-                ForEach(self.viewModel.classifieds, id: \._id, content: {classified in
-            Text("This is coming bear with me")
+        ScrollView(.vertical){
+            VStack{
+                NavigationLink(destination: ClassifiedMapView(classifieds: self.viewModel.classifieds)) {
+                    Text("View the Map")
+                }
+            ForEach(self.viewModel.classifieds, id: \._id, content: {classified in
+                ClassifiedView(classified)
             })
-        }.onAppear{self.viewModel.GetClassifieds()}
+            }.frame(maxWidth: .infinity)
+        }.onAppear{self.viewModel.GetClassifieds()}        .navigationBarTitle("Classifieds")
+    }
+}
+
+struct ClassifiedView: View {
+    var classified: Classified
+    var pictureUrl: URL?
+        
+    init(_ classified: Classified) {
+        self.classified = classified
+        if(classified.pictures.count > 0){
+            self.pictureUrl = URL(string: classified.pictures[0])!
+        }
+        }
+    
+    var body: some View {
+        guard let url = pictureUrl else {
+            return AnyView(NavigationLink(destination: SingleClassifiedView(classified, jwt: JWT())){
+                ZStack{
+            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
+            VStack{
+                Text(classified.title).bold()
+                Text(classified.description)
+                }
+                }
+            }
+            .buttonStyle(PlainButtonStyle()).frame(width: 350, height: 150))
+        }
+        
+        return AnyView(
+            NavigationLink(destination: SingleClassifiedView(classified, jwt: JWT())){
+                ZStack{
+            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
+            
+            VStack{
+                Text(classified.title).bold()
+                Text(classified.description)
+                    AsyncImage(
+                        url: url,
+                        placeholder: Text("Loading ...")
+                    ).aspectRatio(contentMode: .fit)
+            }
+                }
+            }.buttonStyle(PlainButtonStyle()).frame(width: 350, height: 150)
+        )
     }
 }
 
@@ -25,4 +74,4 @@ struct ClassifiedsView_Previews: PreviewProvider {
     static var previews: some View {
         ClassifiedsView(viewModel: ClassifiedsViewModel())
     }
-}
+ }

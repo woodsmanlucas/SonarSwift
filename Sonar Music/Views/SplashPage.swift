@@ -9,39 +9,29 @@
 import SwiftUI
 
 struct SplashPage: View {
-    let LoginAndRegister = JWT()
+    @ObservedObject var LoginAndRegister = JWT()
     let Classifieds = ClassifiedsViewModel()
 
     var body: some View {
         VStack{
+//            if true {
+            if self.LoginAndRegister.token != nil {
+                    VStack{
+                    RectangleView("View all Messages"){MessagesView()}
+                        RectangleView("Classifieds List"){ClassifiedsView(viewModel: self.Classifieds)}
+                        RectangleView("Classifieds Map"){ClassifiedMapView(classifieds: self.Classifieds.classifieds)}
+                    }
+            }
+            else{
             RectangleView("Login"){LoginView(viewModel: self.LoginAndRegister)}
             RectangleView("Register"){RegisterView(viewModel: self.LoginAndRegister)}
             NavigationLink(destination: ClassifiedsView(viewModel: Classifieds)){
             Text("View Classifieds without logging in")
             }
+            }
         }.padding(40)
         .navigationBarTitle("Sonar Music")
     }
-}
-
-struct RectangleView<ItemView>: View where ItemView: View {
-    var text: String
-    var destination: ItemView
-    
-    init(_ text: String, destination: @escaping () -> ItemView){
-        self.text = text
-        self.destination = destination()
-    }
-    
-    var body: some View {
-        NavigationLink(destination: destination){
-            ZStack{
-                RoundedRectangle(cornerRadius: 10.0).foregroundColor(Color.green)
-                Text(text).foregroundColor(Color.white)
-            }.frame(width: 200, height: 40)
-        }
-    }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {

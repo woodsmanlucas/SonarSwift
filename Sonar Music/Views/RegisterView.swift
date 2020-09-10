@@ -15,6 +15,8 @@ struct RegisterView: View {
     @State var lastName: String = ""
     @State var password: String = ""
     @ObservedObject var viewModel: JWT
+    var messageUser: String = "" //User Id of user to be messaged
+
     
    
      private func isUserInformationValid() -> Bool {
@@ -44,8 +46,19 @@ struct RegisterView: View {
                         Text("Register")
                     })
                 }
+                if messageUser == "" {
+                
+                NavigationLink(destination: SplashPage(), isActive: $viewModel.pushed) { EmptyView() }
+                    
+                }
+                else{
+                    
+                NavigationLink(destination: MessageUserView(userId: messageUser, jwt: viewModel), isActive: $viewModel.pushed) { EmptyView() }
+                    
+                }
             }
-        .navigationBarTitle("Login")
+        .navigationBarTitle("Register")
+
         }
     }
 
