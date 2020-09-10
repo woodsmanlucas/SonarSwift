@@ -69,9 +69,3 @@ struct ClassifiedView: View {
         )
     }
 }
-
-struct ClassifiedsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ClassifiedsView(viewModel: ClassifiedsViewModel())
-    }
- }

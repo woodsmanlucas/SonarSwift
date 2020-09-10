@@ -6,4 +6,17 @@
 //  Copyright © 2020 Sonar Music. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
+
+struct Conversation {
+    var subject: String
+    var to: String
+}
+
+class InboxViewModel: ObservableObject {
+    @Published private(set) var conversations: [Conversation] = []
+    
+    func getConversations() {
+        
+    }
+}
