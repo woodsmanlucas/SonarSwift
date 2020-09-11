@@ -73,7 +73,7 @@ class JWT: ObservableObject {
         let array: [String] = []
         
            print("\(array)")
-           let url = URL(string: "http://www.sonarmusic.social/api/auth/register")
+           let url = URL(string: "https://www.sonarmusic.social/api/auth/register")
            guard let requestUrl = url else { fatalError() }
            
            // Prepare URL Request Object

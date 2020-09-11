@@ -27,6 +27,10 @@ struct RegisterView: View {
             if password.isEmpty {
                 return false
             }
+        
+        if username.isEmpty {
+            return false
+        }
             
             return true
         }
