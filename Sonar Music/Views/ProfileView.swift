@@ -30,6 +30,11 @@ struct ProfileView: View {
                 ).aspectRatio(contentMode: .fit)
                 .frame(width:100, height: 100)
             }
+            if(profile.jwt.userId == profile.userId){
+                NavigationLink(destination: EditProfileView(profile: profile)){
+                    Text("Edit Your Profile")
+                }
+            }
             Text("Username: " + profile.profile[0].username)
             HStack{
                 Text(profile.profile[0].firstName)
