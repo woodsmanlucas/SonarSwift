@@ -31,6 +31,10 @@ struct ProfileView: View {
                 .frame(width:100, height: 100)
             }
             if(profile.jwt.userId == profile.userId){
+                NavigationLink(destination: EditProfilePictureView(profile: profile)){
+                    Text("Edit Your Picture")
+                }
+                
                 NavigationLink(destination: EditProfileView(profile: profile)){
                     Text("Edit Your Profile")
                 }

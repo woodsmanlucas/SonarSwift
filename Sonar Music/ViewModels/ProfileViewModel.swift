@@ -25,6 +25,13 @@ struct Profile: Codable {
     var profilePicUrl: String?
 }
 
+struct Post: Codable {
+    var username: String
+    var lastName: String
+    var firstName: String
+    var links: [String]
+}
+
 class ProfileViewModel: ObservableObject {
     @ObservedObject var jwt: JWT
     @Published private(set) var profile: [Profile] = []
@@ -80,6 +87,51 @@ class ProfileViewModel: ObservableObject {
     task.resume()
     }
     
+    func uploadPhoto(_ image: UIImage){
+        print("hello")
+        
+        
+        
+        
+                let profilePicUrl = "https://www.sonarmusic.social/image"
+        
+                guard userId == jwt.userId else {return}
+                
+                // Prepare URL
+                   let url = URL(string: "https://www.sonarmusic.social/api/users/")
+                   guard let requestUrl = url else { fatalError() }
+                   
+                   // Prepare URL Request Object
+                   var request = URLRequest(url: requestUrl)
+                   request.httpMethod = "PATCH"
+                
+                    //set JWT
+                request.setValue(self.jwt.token!, forHTTPHeaderField: "Authorization")
+                
+                   // HTTP Request Parameters which will be sent in HTTP Request Body
+                let postString = "profilePicUrl=\(profilePicUrl)";
+        
+                   // Set HTTP Request Body
+                   request.httpBody = postString.data(using: String.Encoding.utf8);
+                
+                   // Perform HTTP Request
+                   let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                       
+                       // Check for Error
+                       if let error = error {
+                           print("Error took place \(error)")
+                           return
+                       }
+                
+                       // Convert HTTP Response Data to a String
+                       if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                           print("Response data string:\n \(dataString)")
+                       }
+
+                   }
+                   task.resume()
+    }
+    
     func EditProfile(username: String, firstName: String, lastName: String, instrumentsPlayed: [String], experience: [String], links: [String]) {
         guard userId == jwt.userId else {return}
         
@@ -97,12 +149,40 @@ class ProfileViewModel: ObservableObject {
         
             //Convert Experience back to milliseconds from 1970
         
-           // HTTP Request Parameters which will be sent in HTTP Request Body
-        let postString = "username=\(username)&firstName=\(firstName)&lastName=\(lastName)&instrumentsPlayed=\(instrumentsPlayed)&links=\(links)";
-           
-           // Set HTTP Request Body
-           request.httpBody = postString.data(using: String.Encoding.utf8);
-           
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//           // HTTP Request Parameters which will be sent in HTTP Request Body
+//        let postString = "username=\(username)&firstName=\(firstName)&lastName=\(lastName)&instrumentsPlayed=\(instrumentsPlayed)&links=\(links)";
+//
+//           // Set HTTP Request Body
+//           request.httpBody = postString.data(using: String.Encoding.utf8);
+        
+        // your post request data
+        let postDict : [String: Any] = ["username": username,
+                                        "firstName": firstName,
+                                        "lastName": lastName,
+                                        "links": links]
+
+        guard let postData = try? JSONSerialization.data(withJSONObject: postDict, options: []) else {
+            return
+        }
+        
+        print(postDict)
+
+        request.httpBody = postData
+        
            // Perform HTTP Request
            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                
@@ -115,15 +195,6 @@ class ProfileViewModel: ObservableObject {
                // Convert HTTP Response Data to a String
                if let data = data, let dataString = String(data: data, encoding: .utf8) {
                    print("Response data string:\n \(dataString)")
-                   
-                   do{
-                       if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                            print(json)
-                       }
-                   } catch let error as NSError {
-                       print("Failed to load: \(error.localizedDescription)")
-                   }
-
                }
 
            }

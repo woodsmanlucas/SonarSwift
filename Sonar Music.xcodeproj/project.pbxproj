@@ -29,6 +29,8 @@
 		A0AA9C8224F5590400DF3A6C /* SingleClassifiedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C8124F5590400DF3A6C /* SingleClassifiedView.swift */; };
 		A0AA9C8424F55B1400DF3A6C /* ClassifiedMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C8324F55B1400DF3A6C /* ClassifiedMapView.swift */; };
 		A0CD0E0D250B7A5B00868FE8 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD0E0C250B7A5B00868FE8 /* EditProfileView.swift */; };
+		A0CD0E0F250D0C1200868FE8 /* EditProfilePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD0E0E250D0C1200868FE8 /* EditProfilePictureView.swift */; };
+		A0CD0E33250D20B700868FE8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD0E32250D20B700868FE8 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,8 @@
 		A0AA9C8124F5590400DF3A6C /* SingleClassifiedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleClassifiedView.swift; sourceTree = "<group>"; };
 		A0AA9C8324F55B1400DF3A6C /* ClassifiedMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifiedMapView.swift; sourceTree = "<group>"; };
 		A0CD0E0C250B7A5B00868FE8 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		A0CD0E0E250D0C1200868FE8 /* EditProfilePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePictureView.swift; sourceTree = "<group>"; };
+		A0CD0E32250D20B700868FE8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +127,8 @@
 				A057498D2507F735000BDF4C /* MessagesView.swift */,
 				A05749B1250A0C63000BDF4C /* ProfileView.swift */,
 				A0CD0E0C250B7A5B00868FE8 /* EditProfileView.swift */,
+				A0CD0E0E250D0C1200868FE8 /* EditProfilePictureView.swift */,
+				A0CD0E32250D20B700868FE8 /* ImagePicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -213,6 +219,7 @@
 				A057498E2507F735000BDF4C /* MessagesView.swift in Sources */,
 				A0AA9C5324E8283000DF3A6C /* AppDelegate.swift in Sources */,
 				A0AA9C7424EAC2A300DF3A6C /* SplashPage.swift in Sources */,
+				A0CD0E33250D20B700868FE8 /* ImagePicker.swift in Sources */,
 				A057498624FAAAE8000BDF4C /* MessagesViewModel.swift in Sources */,
 				A0AA9C7E24F400BB00DF3A6C /* ImageLoader.swift in Sources */,
 				A0AA9C7024E8544500DF3A6C /* ClassifiedsView.swift in Sources */,
@@ -223,6 +230,7 @@
 				A05749B2250A0C63000BDF4C /* ProfileView.swift in Sources */,
 				A0AA9C6E24E853BA00DF3A6C /* RegisterView.swift in Sources */,
 				A057498424FAAA2C000BDF4C /* MessageUserView.swift in Sources */,
+				A0CD0E0F250D0C1200868FE8 /* EditProfilePictureView.swift in Sources */,
 				A0CD0E0D250B7A5B00868FE8 /* EditProfileView.swift in Sources */,
 				A0AA9C5524E8283000DF3A6C /* SceneDelegate.swift in Sources */,
 				A05749B0250A0C3D000BDF4C /* ProfileViewModel.swift in Sources */,
