@@ -36,7 +36,7 @@ class ProfileViewModel: ObservableObject {
     @ObservedObject var jwt: JWT
     @Published private(set) var profile: [Profile] = []
     @Published private(set) var loaded = false
-    var userId: String
+    @Published var userId: String
     
     init(_ user_id: String, jwt: JWT){
         self.userId = user_id
@@ -85,6 +85,7 @@ class ProfileViewModel: ObservableObject {
                 }
     }
     task.resume()
+
     }
     
     func uploadPhoto(_ image: UIImage){
@@ -130,6 +131,7 @@ class ProfileViewModel: ObservableObject {
 
                    }
                    task.resume()
+        
     }
     
     func EditProfile(username: String, firstName: String, lastName: String, instrumentsPlayed: [String], experience: [String], links: [String]) {
@@ -198,5 +200,7 @@ class ProfileViewModel: ObservableObject {
                }
 
            }
-           task.resume()    }
+           task.resume()
+        
+    }
 }

@@ -12,6 +12,8 @@ struct EditProfilePictureView: View {
     @ObservedObject var profile: ProfileViewModel
        @State private var isShowPhotoLibrary = false
        @State private var image = UIImage()
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     
        var body: some View {
            VStack {
@@ -41,6 +43,7 @@ struct EditProfilePictureView: View {
             
                 Button(action: {
                     self.profile.uploadPhoto(self.image)
+                    self.presentationMode.wrappedValue.dismiss()
                     }) {
                                HStack {
                                    Text("Upload as my photo")
@@ -52,7 +55,6 @@ struct EditProfilePictureView: View {
                                .cornerRadius(20)
                                .padding(.horizontal)
                            }
-            
            }.sheet(isPresented: $isShowPhotoLibrary) {
                ImagePicker(selectedImage: self.$image, sourceType: .photoLibrary)
            }    }

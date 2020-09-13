@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct EditProfileView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @ObservedObject var profile: ProfileViewModel
     @State var username: String = ""
     @State var firstName: String = ""
@@ -26,6 +27,7 @@ struct EditProfileView: View {
        }
     
     var body: some View {
+        VStack{
         Form{
             VStack(alignment: .leading){
             Text("Username:").bold()
@@ -81,9 +83,13 @@ struct EditProfileView: View {
             }
             Button(action: {
                 self.profile.EditProfile(username: self.username, firstName: self.firstName, lastName: self.lastName, instrumentsPlayed: self.instrumentsPlayed, experience: self.experience, links: self.links)
+                self.presentationMode.wrappedValue.dismiss()
+
             }, label: {
                 Text("Submit")
-            })        }.onAppear{
+            })
+            
+        }.onAppear{
             if(self.profile.profile.count > 0){
                 self.username = self.profile.profile[0].username
                 print(self.profile.profile[0].username)
@@ -95,6 +101,8 @@ struct EditProfileView: View {
                                                   -NSDate(timeIntervalSince1970: TimeInterval(self.profile.profile[0].experience[index]/1000)).timeIntervalSinceNow/31556952))
                 }
                 self.links = self.profile.profile[0].links
+            }
+            
             }
         }
     }

@@ -11,7 +11,6 @@ import SwiftUI
 class JWT: ObservableObject {
     @Published private(set) var token: String?
     @Published private(set) var userId: String?
-    @Published var pushed = false
     
     func login(_ email: String, _ password: String) {
         // Prepare URL
@@ -47,7 +46,6 @@ class JWT: ObservableObject {
                             print(token)
                             DispatchQueue.main.async {
                                 self.token = token
-                                self.pushed = true
                             }
                         }
                         if let user = json["user"] as? String{

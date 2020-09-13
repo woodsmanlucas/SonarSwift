@@ -15,6 +15,7 @@ struct LoginView: View {
     @ObservedObject var viewModel: JWT
     var messageUser: String = ""
     let Classifieds = ClassifiedsViewModel()
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
      private func isUserInformationValid() -> Bool {
         if self.email.isEmpty {
@@ -37,6 +38,7 @@ struct LoginView: View {
                 if self.isUserInformationValid() {
                     Button(action: {
                         self.viewModel.login(self.email, self.password)
+                        self.presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Text("Log in")
                     })
