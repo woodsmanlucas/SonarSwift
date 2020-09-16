@@ -12,7 +12,7 @@ import SwiftUI
 struct LoginView: View {
     @State var email: String = "woodsman.lucas@gmail.com"
     @State var password: String = "P@ssw0rd"
-    @ObservedObject var viewModel: JWT
+    @ObservedObject var jwt: JWT
     var messageUser: String = ""
     let Classifieds = ClassifiedsViewModel()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -37,31 +37,21 @@ struct LoginView: View {
                 
                 if self.isUserInformationValid() {
                     Button(action: {
-                        self.viewModel.login(self.email, self.password)
-                        self.presentationMode.wrappedValue.dismiss()
+                        self.jwt.login(self.email, self.password)
+                        if(self.messageUser == ""){
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
                     }, label: {
                         Text("Log in")
                     })
                 }
             }
         .navigationBarTitle("Login")
-                if messageUser == "" {
-                
-                NavigationLink(destination: SplashPage(), isActive: $viewModel.pushed) { EmptyView() }
+                if messageUser != "" {
                     
-                }
-                else{
-                    
-                NavigationLink(destination: MessageUserView(userId: messageUser, jwt: viewModel), isActive: $viewModel.pushed) { EmptyView() }
+                NavigationLink(destination: MessageUserView(userId: messageUser, jwt: jwt), isActive: $jwt.pushed) { EmptyView() }
                     
                 }
         }
-    }
-}
-
-
-struct LoginView_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginView(viewModel: JWT())
     }
 }

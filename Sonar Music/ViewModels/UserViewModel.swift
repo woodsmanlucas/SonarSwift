@@ -25,18 +25,32 @@ struct Profile: Codable {
     var profilePicUrl: String?
 }
 
-struct Post: Codable {
-    var username: String
-    var lastName: String
-    var firstName: String
-    var links: [String]
+struct RatingJsonResponse: Codable, Equatable {
+    static func == (lhs: RatingJsonResponse, rhs: RatingJsonResponse) -> Bool {
+        if(lhs.success && rhs.success && lhs.average == rhs.average && lhs.data == rhs.data){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    var success: Bool
+    var average: Double
+    var data: [Rating]
 }
 
-class ProfileViewModel: ObservableObject {
+struct Rating: Codable, Equatable {
+    var comments: String
+    var rating: Double
+}
+
+
+class UserViewModel: ObservableObject {
     @ObservedObject var jwt: JWT
     @Published private(set) var profile: [Profile] = []
     @Published private(set) var loaded = false
     @Published var userId: String
+    @Published var ratings: RatingJsonResponse?
     
     init(_ user_id: String, jwt: JWT){
         self.userId = user_id
@@ -87,6 +101,47 @@ class ProfileViewModel: ObservableObject {
     task.resume()
 
     }
+    
+    func GetRatings(){
+                        let url = URL(string: ("https://www.sonarmusic.social/api/ratings/" + userId))
+                   guard let requestUrl = url else { fatalError() }
+            
+            print(self.jwt.token!)
+               
+                   // Prepare URL Request Object
+            var request = URLRequest(url: requestUrl)
+                    request.setValue(self.jwt.token!, forHTTPHeaderField: "Authorization")
+
+            
+               
+                   // Perform HTTP Request
+                   let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                   
+                       // Check for Error
+                       if let error = error {
+                           print("Error took place \(error)")
+                           return
+                       }
+            
+                       // Convert HTTP Response Data to a String
+                       if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                           print("Response data string:\n \(dataString)")
+                       do{
+                                  let classifiedData = try JSONDecoder().decode(RatingJsonResponse.self, from: data)
+                           print(classifiedData)
+                           if classifiedData.success{
+                               DispatchQueue.main.async {
+                                    self.ratings = classifiedData
+                                print("ratings \(classifiedData)")
+
+                               }
+                           }
+                       } catch let error as NSError {
+                           print("Failed to load: \(error.localizedDescription)")
+                       }
+                    }
+        }
+        task.resume()    }
     
     func uploadPhoto(_ image: UIImage){
         print("hello")

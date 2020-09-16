@@ -10,7 +10,7 @@ import SwiftUI
 
 struct EditProfileView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @ObservedObject var profile: ProfileViewModel
+    @ObservedObject var profile: UserViewModel
     @State var username: String = ""
     @State var firstName: String = ""
     @State var lastName: String = ""
@@ -84,7 +84,6 @@ struct EditProfileView: View {
             Button(action: {
                 self.profile.EditProfile(username: self.username, firstName: self.firstName, lastName: self.lastName, instrumentsPlayed: self.instrumentsPlayed, experience: self.experience, links: self.links)
                 self.presentationMode.wrappedValue.dismiss()
-
             }, label: {
                 Text("Submit")
             })

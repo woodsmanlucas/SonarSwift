@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct EditProfilePictureView: View {
-    @ObservedObject var profile: ProfileViewModel
+    @ObservedObject var profile: UserViewModel
        @State private var isShowPhotoLibrary = false
        @State private var image = UIImage()
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>

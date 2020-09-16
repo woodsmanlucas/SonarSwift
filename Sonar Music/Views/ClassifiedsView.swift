@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ClassifiedsView: View {
     @ObservedObject var viewModel: ClassifiedsViewModel
+    @ObservedObject var jwt: JWT
 
     
     var body: some View {
@@ -19,7 +20,7 @@ struct ClassifiedsView: View {
                     Text("View the Map")
                 }
             ForEach(self.viewModel.classifieds, id: \._id, content: {classified in
-                ClassifiedView(classified)
+                ClassifiedView(classified, jwt: self.jwt)
             })
             }.frame(maxWidth: .infinity)
         }.onAppear{self.viewModel.GetClassifieds()}        .navigationBarTitle("Classifieds")
@@ -29,9 +30,11 @@ struct ClassifiedsView: View {
 struct ClassifiedView: View {
     var classified: Classified
     var pictureUrl: URL?
-        
-    init(_ classified: Classified) {
+    @ObservedObject var jwt: JWT
+
+    init(_ classified: Classified, jwt: JWT) {
         self.classified = classified
+        self.jwt = jwt
         if(classified.pictures.count > 0){
             self.pictureUrl = URL(string: classified.pictures[0])!
         }
@@ -39,7 +42,7 @@ struct ClassifiedView: View {
     
     var body: some View {
         guard let url = pictureUrl else {
-            return AnyView(NavigationLink(destination: SingleClassifiedView(classified, jwt: JWT())){
+            return AnyView(NavigationLink(destination: SingleClassifiedView(classified, jwt: jwt)){
                 ZStack{
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
             VStack{
@@ -52,7 +55,7 @@ struct ClassifiedView: View {
         }
         
         return AnyView(
-            NavigationLink(destination: SingleClassifiedView(classified, jwt: JWT())){
+            NavigationLink(destination: SingleClassifiedView(classified, jwt: jwt)){
                 ZStack{
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
             
