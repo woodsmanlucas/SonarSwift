@@ -9,25 +9,33 @@
 import SwiftUI
 
 struct SplashPage: View {
-    @ObservedObject var LoginAndRegister = JWT()
+    @ObservedObject var jwt = JWT()
     let Classifieds = ClassifiedsViewModel()
 
     var body: some View {
         VStack{
 //            if true {
-            if self.LoginAndRegister.token != nil  && self.LoginAndRegister.userId != nil{
+            if self.jwt.token != nil  && self.jwt.userId != nil{
                     VStack{
                     RectangleView("View all Messages"){MessagesView()}
-                        RectangleView("Classifieds List"){ClassifiedsView(viewModel: self.Classifieds)}
-                        RectangleView("Classifieds Map"){ClassifiedMapView(classifieds: self.Classifieds.classifieds)}
-                        RectangleView("My Profile"){ProfileView(profile: ProfileViewModel(self.LoginAndRegister.userId!, jwt: self.LoginAndRegister))}
+                        RectangleView("Classifieds"){ClassifiedsView(viewModel: self.Classifieds, jwt: self.jwt)}
+                        RectangleView("My Profile"){ProfileView(user: UserViewModel(self.jwt.userId!, jwt: self.jwt))}
+                        RectangleView("Create a classified"){CreateClassifiedView(classifiedsViewModel: self.Classifieds, jwt: self.jwt)}
+                        RectangleView("My Classifieds"){MyClassifiedsView(Classfieds: self.Classifieds)}
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 10.0).foregroundColor(Color.green)
+                            Text("Log out").foregroundColor(Color.white)
+                        }.frame(width: 200, height: 40)
+                        .onTapGesture {
+                            self.jwt.logout()
+                        }
 
                     }
             }
             else{
-            RectangleView("Login"){LoginView(viewModel: self.LoginAndRegister)}
-            RectangleView("Register"){RegisterView(viewModel: self.LoginAndRegister)}
-            NavigationLink(destination: ClassifiedsView(viewModel: Classifieds)){
+            RectangleView("Login"){LoginView(jwt: self.jwt)}
+            RectangleView("Register"){RegisterView(jwt: self.jwt)}
+                NavigationLink(destination: ClassifiedsView(viewModel: Classifieds, jwt: self.jwt)){
             Text("View Classifieds without logging in")
             }
             }

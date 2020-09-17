@@ -32,12 +32,16 @@ struct SingleClassifiedView: View {
                         NavigationLink(destination: MessageUserView(userId: classified.user[0]!._id, jwt: jwt)){
                         Text("Message this user")
                         }
+                        
+                        NavigationLink(destination: ProfileView(user: UserViewModel(classified.user[0]!._id, jwt: jwt))){
+                            Text("View this users profile")
+                        }
                     }
                     else{
-                        NavigationLink(destination: LoginView(viewModel: jwt, messageUser: classified.user[0]!._id) ) {
+                        NavigationLink(destination: LoginView(jwt: jwt, messageUser: classified.user[0]!._id) ) {
                             Text("Login to Message this user")
                             }
-                        NavigationLink(destination: RegisterView(viewModel: jwt, messageUser: classified.user[0]!._id)){
+                        NavigationLink(destination: RegisterView(jwt: jwt, messageUser: classified.user[0]!._id)){
                           Text("Register to Message this user")
                         }
                     }
@@ -52,6 +56,24 @@ struct SingleClassifiedView: View {
                                url: url,
                                placeholder: Text("Loading ...")
                            ).aspectRatio(contentMode: .fit)
+                                       if jwt.token != nil {
+                   //                    if false {
+                                           NavigationLink(destination: MessageUserView(userId: classified.user[0]!._id, jwt: jwt)){
+                                           Text("Message this user")
+                                           }
+                                           
+                                           NavigationLink(destination: ProfileView(user: UserViewModel(classified.user[0]!._id, jwt: jwt))){
+                                               Text("View this users profile")
+                                           }
+                                       }
+                                       else{
+                                           NavigationLink(destination: LoginView(jwt: jwt, messageUser: classified.user[0]!._id) ) {
+                                               Text("Login to Message this user")
+                                               }
+                                           NavigationLink(destination: RegisterView(jwt: jwt, messageUser: classified.user[0]!._id)){
+                                             Text("Register to Message this user")
+                                           }
+                                       }
                    }.navigationBarTitle("Classified")
                )
     }

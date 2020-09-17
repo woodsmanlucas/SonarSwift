@@ -13,6 +13,11 @@ class JWT: ObservableObject {
     @Published private(set) var userId: String?
     @Published var pushed = false
     
+    func logout(){
+        token = nil
+        userId = nil
+    }
+    
     func login(_ email: String, _ password: String) {
         // Prepare URL
         let url = URL(string: "https://www.sonarmusic.social/api/auth/login")

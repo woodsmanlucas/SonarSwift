@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct JsonResponse: Codable {
+struct ClassifiedJsonResponse: Codable {
     var success: Bool
     var classifieds: [Classified]
 }
@@ -61,7 +61,7 @@ class ClassifiedsViewModel: ObservableObject {
                 print("Response data string:\n \(dataString)")
                 print(data)
             do{
-                       let classifiedData = try JSONDecoder().decode(JsonResponse.self, from: data)
+                       let classifiedData = try JSONDecoder().decode(ClassifiedJsonResponse.self, from: data)
                 print(classifiedData.classifieds)
                 if classifiedData.success{
                     DispatchQueue.main.async {
@@ -78,5 +78,9 @@ class ClassifiedsViewModel: ObservableObject {
 
     }
     task.resume()
+    }
+    
+    func CreateClassified(_ jwtToken: String, title: String, description: String, type: String){
+        print(type)
     }
 }

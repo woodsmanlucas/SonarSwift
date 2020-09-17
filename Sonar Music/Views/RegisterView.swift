@@ -14,7 +14,7 @@ struct RegisterView: View {
     @State var firstName: String = ""
     @State var lastName: String = ""
     @State var password: String = ""
-    @ObservedObject var viewModel: JWT
+    @ObservedObject var jwt: JWT
     var messageUser: String = "" //User Id of user to be messaged
 
     
@@ -45,19 +45,19 @@ struct RegisterView: View {
                 
                 if self.isUserInformationValid() {
                     Button(action: {
-                        self.viewModel.register(email: self.email, username: self.username, firstName: self.firstName, lastName: self.lastName, password: self.password)
+                        self.jwt.register(email: self.email, username: self.username, firstName: self.firstName, lastName: self.lastName, password: self.password)
                     }, label: {
                         Text("Register")
                     })
                 }
                 if messageUser == "" {
                 
-                NavigationLink(destination: SplashPage(), isActive: $viewModel.pushed) { EmptyView() }
+                NavigationLink(destination: SplashPage(), isActive: $jwt.pushed) { EmptyView() }
                     
                 }
                 else{
                     
-                NavigationLink(destination: MessageUserView(userId: messageUser, jwt: viewModel), isActive: $viewModel.pushed) { EmptyView() }
+                NavigationLink(destination: MessageUserView(userId: messageUser, jwt: jwt), isActive: $jwt.pushed) { EmptyView() }
                     
                 }
             }
@@ -65,9 +65,3 @@ struct RegisterView: View {
 
         }
     }
-
-struct RegisterView_Previews: PreviewProvider {
-    static var previews: some View {
-        RegisterView(viewModel: JWT())
-    }
-}
