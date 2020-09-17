@@ -14,7 +14,7 @@ struct ProfileView: View {
     
     var body: some View {
         
-        VStack{
+        ScrollView{
             Spacer()
             if self.user.profile.count > 0 {
                 if self.user.profile[0].profilePicUrl != nil {
@@ -89,8 +89,9 @@ struct ProfileView: View {
                 }
                 Spacer()
                 VStack{
-                    ForEach(0..<self.user.ratings!.data.count){
+                    ForEach(0..<self.user.ratings!.data.count, id: \.self){
                         index in
+                        VStack{
                         HStack{
                             Spacer()
                             Text("Rating:")
@@ -104,6 +105,7 @@ struct ProfileView: View {
                             Spacer()
                             Text(self.user.ratings!.data[index].comments)
                             Spacer()
+                        }
                         }
                     }
                 }

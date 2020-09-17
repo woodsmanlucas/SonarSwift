@@ -42,8 +42,7 @@ struct CreateClassifiedView: View {
                        TextField("Subject", text: $title)
                        TextField("Description", text: $description)
                     if(state.rawValue == "Buy" || state.rawValue == "Sell"){
-                        TextField("Price", value: $price, formatter: NumberFormatter())
-                    }
+                        TextField("Price", value: $price, formatter: NumberFormatter()).keyboardType(.numberPad)                    }
                     
                         Picker("Type of Ad", selection: $state) {
                             Text("Buy").tag(types.Buy)

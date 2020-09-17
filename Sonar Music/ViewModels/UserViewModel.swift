@@ -143,6 +143,44 @@ class UserViewModel: ObservableObject {
         }
         task.resume()    }
     
+    func PostRatings(comment: String, rating: String) -> Bool{
+        let sem = DispatchSemaphore.init(value: 0)
+        
+        
+        let url = URL(string: ("https://www.sonarmusic.social/api/ratings/"))
+               guard let requestUrl = url else { fatalError() }
+                   
+               // Prepare URL Request Object
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "POST"
+                request.setValue(self.jwt.token!, forHTTPHeaderField: "Authorization")
+
+                        
+            let postString = "comment=\(comment)&rating=\(rating)&userBeingRated=\(self.userId)";
+                   // Set HTTP Request Body
+                   request.httpBody = postString.data(using: String.Encoding.utf8);
+        
+               // Perform HTTP Request
+               let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    defer { sem.signal() }
+                
+                   // Check for Error
+                   if let error = error {
+                       print("Error took place \(error)")
+                       return
+                   }
+        
+                   // Convert HTTP Response Data to a String
+                   if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                       print("Response data string:\n \(dataString)")
+                }
+        }
+        task.resume()
+        
+        sem.wait()
+        return true
+    }
+    
     func uploadPhoto(_ image: UIImage){
         print("hello")
         
