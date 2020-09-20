@@ -1,5 +1,5 @@
 //
-//  MessageUserView.swift
+//  NewConversationView.swift
 //  Sonar Music
 //
 //  Created by Lucas Johnson on 2020-08-29.
@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-struct MessageUserView: View {
+struct NewConversationView: View {
     var userId: String
-    var jwt: JWT
+    @ObservedObject var jwt: JWT
     
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)

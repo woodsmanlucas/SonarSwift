@@ -74,7 +74,6 @@ class JWT: ObservableObject {
     
     func register(email: String, username: String, firstName: String, lastName: String, password: String){
         // Prepare URL
-            let userType = "user"
         let array: [String] = []
         
            print("\(array)")
@@ -86,7 +85,7 @@ class JWT: ObservableObject {
            request.httpMethod = "POST"
         
            // HTTP Request Parameters which will be sent in HTTP Request Body
-           let postString = "email=\(email)&username=\(username)&firstName=\(firstName)&lastName=\(lastName)&password=\(password)&gigsById=\(array)&badgesById=[]&pendingFirends=[]&friends=[]&following=[]&followers=[]&userType=\(userType)";
+           let postString = "email=\(email)&username=\(username)&firstName=\(firstName)&lastName=\(lastName)&password=\(password)&userType='user'";
            
            // Set HTTP Request Body
            request.httpBody = postString.data(using: String.Encoding.utf8);
@@ -103,8 +102,25 @@ class JWT: ObservableObject {
                // Convert HTTP Response Data to a String
                if let data = data, let dataString = String(data: data, encoding: .utf8) {
                 print("Response data string:\n \(dataString)")
-
-            }
+                do{
+                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                        if let token = json["token"] as? String{
+                            print(token)
+                            DispatchQueue.main.async {
+                                self.token = token
+                                self.pushed = true
+                            }
+                        }
+                        if let user = json["user"] as? String{
+                             print(user)
+                             DispatchQueue.main.async {
+                                 self.userId = user
+                             }
+                         }
+                    }
+                } catch let error as NSError {
+                    print("Failed to load: \(error.localizedDescription)")
+                }            }
            }
            task.resume()    }
 }

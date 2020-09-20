@@ -49,7 +49,7 @@ struct LoginView: View {
         .navigationBarTitle("Login")
                 if messageUser != "" {
                     
-                NavigationLink(destination: MessageUserView(userId: messageUser, jwt: jwt), isActive: $jwt.pushed) { EmptyView() }
+                NavigationLink(destination: NewConversationView(userId: messageUser, jwt: jwt), isActive: $jwt.pushed) { EmptyView() }
                     
                 }
         }

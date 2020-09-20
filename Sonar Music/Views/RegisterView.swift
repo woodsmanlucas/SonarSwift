@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct RegisterView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var email: String = ""
     @State var username: String = ""
     @State var firstName: String = ""
@@ -46,6 +47,7 @@ struct RegisterView: View {
                 if self.isUserInformationValid() {
                     Button(action: {
                         self.jwt.register(email: self.email, username: self.username, firstName: self.firstName, lastName: self.lastName, password: self.password)
+                        self.presentationMode.wrappedValue.dismiss()
                     }, label: {
                         Text("Register")
                     })
@@ -57,7 +59,7 @@ struct RegisterView: View {
                 }
                 else{
                     
-                NavigationLink(destination: MessageUserView(userId: messageUser, jwt: jwt), isActive: $jwt.pushed) { EmptyView() }
+                NavigationLink(destination: NewConversationView(userId: messageUser, jwt: jwt), isActive: $jwt.pushed) { EmptyView() }
                     
                 }
             }

@@ -17,7 +17,7 @@ struct SplashPage: View {
 //            if true {
             if self.jwt.token != nil  && self.jwt.userId != nil{
                     VStack{
-                    RectangleView("View all Messages"){MessagesView()}
+                        RectangleView("View all Messages"){MessagesView(inbox: InboxViewModel(jwt: self.jwt))}
                         RectangleView("Classifieds"){ClassifiedsView(viewModel: self.Classifieds, jwt: self.jwt)}
                         RectangleView("My Profile"){ProfileView(user: UserViewModel(self.jwt.userId!, jwt: self.jwt))}
                         RectangleView("Create a classified"){CreateClassifiedView(classifiedsViewModel: self.Classifieds, jwt: self.jwt)}

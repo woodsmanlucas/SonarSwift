@@ -29,7 +29,7 @@ struct SingleClassifiedView: View {
                         Text(classified.description)
                     if jwt.token != nil {
 //                    if false {
-                        NavigationLink(destination: MessageUserView(userId: classified.user[0]!._id, jwt: jwt)){
+                        NavigationLink(destination: NewConversationView(userId: classified.user[0]!._id, jwt: jwt)){
                         Text("Message this user")
                         }
                         
@@ -58,7 +58,7 @@ struct SingleClassifiedView: View {
                            ).aspectRatio(contentMode: .fit)
                                        if jwt.token != nil {
                    //                    if false {
-                                           NavigationLink(destination: MessageUserView(userId: classified.user[0]!._id, jwt: jwt)){
+                                           NavigationLink(destination: NewConversationView(userId: classified.user[0]!._id, jwt: jwt)){
                                            Text("Message this user")
                                            }
                                            
