@@ -32,21 +32,27 @@ struct ConversationView: View {
     var body: some View {
         if(self.inbox.jwt.userId! == conversation.senderId){
             return NavigationLink(destination: IndiviualConversationView(conversationId: self.conversation._id, otherUser: self.conversation.receiverId, inbox: self.inbox)){
-            HStack{
+            VStack{
+                HStack{
                 Spacer()
                 Text(conversation.subject).bold()
                 Spacer(minLength: 20)
                 Text("To: " + conversation.receiverId)
                 }
                 Spacer()
+                }
+                Spacer()
             }.foregroundColor(Color.black)
         }else{
             return NavigationLink(destination: IndiviualConversationView(conversationId: self.conversation._id, otherUser: self.conversation.senderId, inbox: self.inbox)){
-            HStack{
+            VStack{
+                HStack{
                 Spacer()
                 Text(conversation.subject).bold()
                 Spacer(minLength: 20)
                 Text("From: " + conversation.senderId)
+                }
+                Spacer()
                 }
                 Spacer()
             }.foregroundColor(Color.black)

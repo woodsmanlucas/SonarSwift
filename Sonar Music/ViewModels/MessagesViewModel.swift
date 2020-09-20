@@ -28,6 +28,8 @@ struct MessagesJsonResponse: Codable {
 struct Message: Codable {
     var _id: String
     var msg: String
+    var receiverId: String
+    var senderId: String
 }
 
 class InboxViewModel: ObservableObject {
@@ -120,7 +122,7 @@ class InboxViewModel: ObservableObject {
                        if messagesData.success{
                            DispatchQueue.main.async {
                                self.messages = messagesData.messages
-                               print("messages \(self.conversations)")
+                               print("messages \(self.messages)")
 
                            }
                        }
