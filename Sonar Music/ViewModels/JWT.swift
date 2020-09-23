@@ -8,20 +8,33 @@
 
 import SwiftUI
 
+enum NetworkError: Error {
+    case url
+    case server
+    case unknown
+}
+
 class JWT: ObservableObject {
     @Published private(set) var token: String?
     @Published private(set) var userId: String?
     @Published var pushed = false
+    @Published var error: String?
     
     func logout(){
         token = nil
         userId = nil
     }
     
-    func login(_ email: String, _ password: String) {
+    func login(_ email: String, _ password: String) -> Result<String?, NetworkError>{
+        
+        var result: Result<String?, NetworkError> = .failure(.unknown)
+        
+        let semaphore = DispatchSemaphore(value: 0)
+
+        
         // Prepare URL
         let url = URL(string: "https://www.sonarmusic.social/api/auth/login")
-        guard let requestUrl = url else { fatalError() }
+        guard let requestUrl = url else { return .failure(.url) }
         
         // Prepare URL Request Object
         var request = URLRequest(url: requestUrl)
@@ -34,18 +47,18 @@ class JWT: ObservableObject {
         request.httpBody = postString.data(using: String.Encoding.utf8);
         
         // Perform HTTP Request
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             // Check for Error
             if let error = error {
                 print("Error took place \(error)")
-                return
             }
-     
+            
+
             // Convert HTTP Response Data to a String
             if let data = data, let dataString = String(data: data, encoding: .utf8) {
                 print("Response data string:\n \(dataString)")
-                
+
                 do{
                     if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         if let token = json["token"] as? String{
@@ -61,18 +74,37 @@ class JWT: ObservableObject {
                                  self.userId = user
                              }
                          }
+                        if let msg = json["msg"] as? String{
+                            result = .success(msg)
+                        }else{
+                            result = .success(nil)
+                        }
                     }
                 } catch let error as NSError {
                     print("Failed to load: \(error.localizedDescription)")
+                    result = .success(dataString)
                 }
-
+            }else{
+                result = .failure(.server)
             }
+            semaphore.signal()
 
-        }
-        task.resume()
-        }
+        }.resume()
+        
+        _ = semaphore.wait(wallTimeout: .distantFuture)
+
+        
+        print(result)
+        return result
+    }
     
-    func register(email: String, username: String, firstName: String, lastName: String, password: String){
+    func register(email: String, username: String, firstName: String, lastName: String, password: String) -> Result<String?, NetworkError>{
+        
+        var result: Result<String?, NetworkError> = .failure(.unknown)
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        
+        
         // Prepare URL
         let array: [String] = []
         
@@ -117,10 +149,25 @@ class JWT: ObservableObject {
                                  self.userId = user
                              }
                          }
+                        if let msg = json["msg"] as? String{
+                            result = .success(msg)
+                        }else{
+                            result = .success(nil)
+                        }
                     }
                 } catch let error as NSError {
                     print("Failed to load: \(error.localizedDescription)")
-                }            }
+                    result = .success(dataString)
+                }
+                
+            }
+            semaphore.signal()
+
            }
-           task.resume()    }
+           task.resume()
+        
+            _ = semaphore.wait(wallTimeout: .distantFuture)
+        
+        return result
+    }
 }

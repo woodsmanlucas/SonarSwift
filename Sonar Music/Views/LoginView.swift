@@ -15,6 +15,7 @@ struct LoginView: View {
     @ObservedObject var jwt: JWT
     var messageUser: String = ""
     let Classifieds = ClassifiedsViewModel()
+    @State var error: String?
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
      private func isUserInformationValid() -> Bool {
@@ -37,16 +38,33 @@ struct LoginView: View {
                 
                 if self.isUserInformationValid() {
                     Button(action: {
-                        self.jwt.login(self.email, self.password)
-                        if(self.messageUser == ""){
-                            self.presentationMode.wrappedValue.dismiss()
+                        DispatchQueue.global(qos: .utility).async {
+                            let result = self.jwt.login(self.email, self.password)
+                            DispatchQueue.main.async {
+                                switch result {
+                                case let .success(data):
+                                    if(data != nil){
+                                        self.error = data
+                                    }else{
+                                        self.presentationMode.wrappedValue.dismiss()
+
+                                        }
+                                case let .failure(data):
+                                    print(data) 
+                                }
+                            }
                         }
                     }, label: {
                         Text("Log in")
                     })
                 }
+                if self.error != nil {
+                    Text(self.error!).foregroundColor(Color.red)
+                }
             }
         .navigationBarTitle("Login")
+
+                
                 if messageUser != "" {
                     
                 NavigationLink(destination: NewConversationView(userId: messageUser, jwt: jwt), isActive: $jwt.pushed) { EmptyView() }

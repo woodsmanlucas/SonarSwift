@@ -10,7 +10,7 @@ import SwiftUI
 
 struct SplashPage: View {
     @ObservedObject var jwt = JWT()
-    let Classifieds = ClassifiedsViewModel()
+    let classifieds = ClassifiedsViewModel()
 
     var body: some View {
         VStack{
@@ -18,10 +18,10 @@ struct SplashPage: View {
             if self.jwt.token != nil  && self.jwt.userId != nil{
                     VStack{
                         RectangleView("View all Messages"){MessagesView(inbox: InboxViewModel(jwt: self.jwt))}
-                        RectangleView("Classifieds"){ClassifiedsView(viewModel: self.Classifieds, jwt: self.jwt)}
+                        RectangleView("Classifieds"){ClassifiedsView(viewModel: self.classifieds, jwt: self.jwt)}
                         RectangleView("My Profile"){ProfileView(user: UserViewModel(self.jwt.userId!, jwt: self.jwt))}
-                        RectangleView("Create a classified"){CreateClassifiedView(classifiedsViewModel: self.Classifieds, jwt: self.jwt)}
-                        RectangleView("My Classifieds"){MyClassifiedsView(Classfieds: self.Classifieds)}
+                        RectangleView("Create a classified"){CreateClassifiedView(classifieds: self.classifieds, jwt: self.jwt)}
+                        RectangleView("My Classifieds"){MyClassifiedsView(Classfieds: self.classifieds)}
                         ZStack{
                             RoundedRectangle(cornerRadius: 10.0).foregroundColor(Color.green)
                             Text("Log out").foregroundColor(Color.white)
@@ -35,7 +35,7 @@ struct SplashPage: View {
             else{
             RectangleView("Login"){LoginView(jwt: self.jwt)}
             RectangleView("Register"){RegisterView(jwt: self.jwt)}
-                NavigationLink(destination: ClassifiedsView(viewModel: Classifieds, jwt: self.jwt)){
+                NavigationLink(destination: ClassifiedsView(viewModel: classifieds, jwt: self.jwt)){
             Text("View Classifieds without logging in")
             }
             }
