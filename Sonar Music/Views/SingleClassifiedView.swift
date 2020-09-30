@@ -10,13 +10,13 @@ import SwiftUI
 
 struct SingleClassifiedView: View {
     var classified: Classified
-    var pictureUrl: URL?
+    var pictureUrl: String?
     @ObservedObject var jwt: JWT
     
     init(_ classified: Classified, jwt: JWT) {
         self.classified = classified
         if(classified.pictures.count > 0){
-            self.pictureUrl = URL(string: classified.pictures[0])!
+            self.pictureUrl = classified.pictures[0]
         }
         self.jwt = jwt
         }
@@ -29,7 +29,7 @@ struct SingleClassifiedView: View {
                         Text(classified.description)
                     if jwt.token != nil {
 //                    if false {
-                        NavigationLink(destination: MessageUserView(userId: classified.user[0]!._id, jwt: jwt)){
+                        NavigationLink(destination: NewConversationView(userId: classified.user[0]!._id, inbox: InboxViewModel(jwt: jwt))){
                         Text("Message this user")
                         }
                         
@@ -53,12 +53,11 @@ struct SingleClassifiedView: View {
                        Text(classified.title).bold()
                        Text(classified.description)
                            AsyncImage(
-                               url: url,
-                               placeholder: Text("Loading ...")
+                               url: url
                            ).aspectRatio(contentMode: .fit)
                                        if jwt.token != nil {
                    //                    if false {
-                                           NavigationLink(destination: MessageUserView(userId: classified.user[0]!._id, jwt: jwt)){
+                                           NavigationLink(destination: NewConversationView(userId: classified.user[0]!._id, inbox: InboxViewModel(jwt: jwt))){
                                            Text("Message this user")
                                            }
                                            

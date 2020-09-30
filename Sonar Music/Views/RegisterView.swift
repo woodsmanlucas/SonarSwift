@@ -9,13 +9,15 @@
 import SwiftUI
 
 struct RegisterView: View {
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var email: String = ""
     @State var username: String = ""
     @State var firstName: String = ""
     @State var lastName: String = ""
     @State var password: String = ""
+    @State var error: String?
     @ObservedObject var jwt: JWT
-    var messageUser: String = "" //User Id of user to be messaged
+    var messageUser: String? //User Id of user to be messaged
 
     
    
@@ -45,20 +47,27 @@ struct RegisterView: View {
                 
                 if self.isUserInformationValid() {
                     Button(action: {
-                        self.jwt.register(email: self.email, username: self.username, firstName: self.firstName, lastName: self.lastName, password: self.password)
+                        DispatchQueue.global(qos: .utility).async {
+                            let result = self.jwt.register(email: self.email, username: self.username, firstName: self.firstName, lastName: self.lastName, password: self.password, self.messageUser)
+                        DispatchQueue.main.async {
+                            switch result {
+                            case let .success(data):
+                                if(data == nil){
+                                    self.presentationMode.wrappedValue.dismiss()
+                                    }
+                                self.error = data
+                            case let .failure(data):
+                                print(data)
+                            }
+                        }
+                        }
                     }, label: {
                         Text("Register")
                     })
                 }
-                if messageUser == "" {
                 
-                NavigationLink(destination: SplashPage(), isActive: $jwt.pushed) { EmptyView() }
-                    
-                }
-                else{
-                    
-                NavigationLink(destination: MessageUserView(userId: messageUser, jwt: jwt), isActive: $jwt.pushed) { EmptyView() }
-                    
+                if error != nil {
+                    Text(error!).foregroundColor(Color.red)
                 }
             }
         .navigationBarTitle("Register")

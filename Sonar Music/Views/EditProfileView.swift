@@ -61,13 +61,13 @@ struct EditProfileView: View {
                 }
             }
             ZStack{
-                RoundedRectangle(cornerRadius: 10.0).foregroundColor(Color.green)
-                Text("+").foregroundColor(Color.white)
-            }.onTapGesture {
-                self.instrumentsPlayed.append("")
-                self.experience.append("")
-                print(self.instrumentsPlayed)
-            }
+                    RoundedRectangle(cornerRadius: 10.0).foregroundColor(Color.green)
+                    Text("+").foregroundColor(Color.white)
+                }.onTapGesture {
+                    self.instrumentsPlayed.append("")
+                    self.experience.append("")
+                    print(self.instrumentsPlayed)
+                }
             Text("Links:").bold()
             VStack{
                 ForEach(0..<links.count, id: \.self){
@@ -82,8 +82,8 @@ struct EditProfileView: View {
                 self.links.append("")
             }
             Button(action: {
-                self.profile.EditProfile(username: self.username, firstName: self.firstName, lastName: self.lastName, instrumentsPlayed: self.instrumentsPlayed, experience: self.experience, links: self.links)
-                self.presentationMode.wrappedValue.dismiss()
+                self.profile.EditProfile(username: self.username, firstName: self.firstName, lastName: self.lastName, instrumentsPlayed: self.instrumentsPlayed, experiences: self.experience, links: self.links)
+//                self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Submit")
             })

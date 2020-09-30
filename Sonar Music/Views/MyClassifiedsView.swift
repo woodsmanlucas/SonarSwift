@@ -9,9 +9,79 @@
 import SwiftUI
 
 struct MyClassifiedsView: View {
-    var Classfieds: ClassifiedsViewModel
+        @ObservedObject var viewModel: ClassifiedsViewModel
+        
+        var body: some View {
+            ScrollView(.vertical){
+                VStack{
+                ForEach(self.viewModel.myClassifieds, id: \._id, content: {classified in
+                    MyClassifiedView(classified, viewModel: self.viewModel)
+                })
+                }.frame(maxWidth: .infinity)
+            }.onAppear{self.viewModel.getMyClassifeds()}
+                .navigationBarTitle("My Classifieds")
+        }
+    }
+
+struct MyClassifiedView: View {
+    @ObservedObject var viewModel: ClassifiedsViewModel
+    var classified: MyClassified
+    var pictureUrl: String?
+
+    init(_ classified: MyClassified, viewModel: ClassifiedsViewModel) {
+        self.classified = classified
+        self.viewModel = viewModel
+        print(classified._id)
+        print(classified.pictures)
+        if(classified.pictures.count > 0){
+            self.pictureUrl = classified.pictures[0]
+        }
+        }
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        guard let url = pictureUrl else {
+            return AnyView(VStack{
+                ZStack{
+            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
+            VStack{
+                Text(classified.title).bold()
+                Text(classified.description)
+                }
+                }
+            .frame(width: 350, height: 150)
+                Button(action: {
+                    self.viewModel.delete(self.classified._id)
+                }){
+                    ZStack{
+                    RoundedRectangle(cornerRadius: 10).foregroundColor(Color.red)
+                    Text("Delete")
+                    }
+                }.buttonStyle(PlainButtonStyle()).frame(width: 100, height: 20)
+            })
+        }
+        
+        return AnyView(VStack{
+                ZStack{
+            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
+            
+            VStack{
+                Text(classified.title).bold()
+                Text(classified.description)
+                    AsyncImage(
+                        url: url
+                    ).aspectRatio(contentMode: .fit)
+            }
+            }.frame(width: 350, height: 150)
+
+            
+            Button(action: {
+                self.viewModel.delete(self.classified._id)
+            }){
+                ZStack{
+                RoundedRectangle(cornerRadius: 10).foregroundColor(Color.red)
+                Text("Delete")
+                }
+            }.buttonStyle(PlainButtonStyle()).frame(width: 100, height: 20)
+        })
     }
 }

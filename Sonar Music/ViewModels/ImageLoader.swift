@@ -7,32 +7,35 @@
 //
 
 import SwiftUI
-import Combine
+
+enum LoadState {
+    case loading, success, failure
+}
 
 class ImageLoader: ObservableObject {
-    @Published var image: UIImage?
-    private let url: URL
+    @Published var data = Data()
+    var state = LoadState.loading
 
-    
-    init(url: URL){
-        self.url = url
-    }
-    
-    private var cancellable: AnyCancellable?
-    
-    deinit {
-        cancellable?.cancel()
-    }
+    init(url: String) {
+        guard let parsedURL = URL(string: url) else {
+            fatalError("Invalid URL: \(url)")
+        }
 
-    func load() {
-        cancellable = URLSession.shared.dataTaskPublisher(for: url)
-            .map { UIImage(data: $0.data) }
-            .replaceError(with: nil)
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.image, on: self)
-    }
-    
-    func cancel() {
-        cancellable?.cancel()
+        URLSession.shared.dataTask(with: parsedURL) { data, response, error in
+            if let data = data, data.count > 0 {
+                DispatchQueue.main.async {
+                self.data = data
+                self.state = .success
+                }
+            } else {
+                DispatchQueue.main.async {
+                self.state = .failure
+                }
+            }
+
+            DispatchQueue.main.async {
+                self.objectWillChange.send()
+            }
+        }.resume()
     }
 }

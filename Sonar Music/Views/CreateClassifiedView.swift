@@ -9,12 +9,19 @@
 import SwiftUI
 
 struct CreateClassifiedView: View {
-    @ObservedObject var classifiedsViewModel: ClassifiedsViewModel
-    var jwt: JWT
+    @ObservedObject var classifieds: ClassifiedsViewModel
+    @ObservedObject var jwt: JWT
     @State var title: String = ""
     @State var description: String = ""
     @State var state: types = .Buy
     @State var price: Double = 0
+    @State var imageIndex: Int = 0
+    @State var offset = CGSize.zero
+    @State var tags: [String] = []
+    @State var error: String?
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    
     enum types: String, CaseIterable, Identifiable {
         case Buy
         case Sell
@@ -37,7 +44,6 @@ struct CreateClassifiedView: View {
            return true
        }
     var body: some View {
-         VStack{
                    Form{
                        TextField("Subject", text: $title)
                        TextField("Description", text: $description)
@@ -51,16 +57,92 @@ struct CreateClassifiedView: View {
                             Text("Looking for Band").tag(types.Looking_for_band)
                             Text("Looking for gigs").tag(types.Looking_for_gigs)
                         }
-                       
-                       if self.isUserInformationValid() {
+                    
+                    NavigationLink(destination: AddImageToClassified(classifieds: self.classifieds, jwt: self.jwt)) {
+                        Text("Add an Image")
+                    }
+                    
+
+                       if (self.isUserInformationValid()) {
                            Button(action: {
-                            self.classifiedsViewModel.CreateClassified(self.jwt.token!, title: self.title, description: self.description, type: self.state.rawValue.replacingOccurrences(of: "_", with: " "))
+                            DispatchQueue.global(qos: .utility).async {
+                                let result: Result<String?, NetworkError>
+                            if(self.state.rawValue == "Buy" || self.state.rawValue == "Sell"){
+                                result = self.classifieds.CreateClassified(self.jwt.token!, title: self.title, description: self.description, type: self.state.rawValue.replacingOccurrences(of: "_", with: " "), price: self.price, tags: self.tags)
+                            }else{
+                                result = self.classifieds.CreateClassified(self.jwt.token!, title: self.title, description: self.description, type: self.state.rawValue.replacingOccurrences(of: "_", with: " "), price: nil, tags: self.tags)
+                            }
+                                DispatchQueue.main.async {
+                                switch result {
+                                case let .success(data):
+                                    if(data != nil){
+                                        self.error = data
+                                    }else{
+                                        self.presentationMode.wrappedValue.dismiss()
+
+                                        }
+                                case let .failure(data):
+                                    print(data)
+                                    }
+                                }
+                            }
                            }, label: {
                                Text("Create Classified")
                            })
                        }
+                    
+                    if(self.classifieds.images.count > 0){
+                        HStack{
+                            Spacer()
+                        Image(uiImage: self.classifieds.images[imageIndex])
+                            .resizable()
+                        .frame(width: 200, height: 200)
+                            .rotationEffect(.degrees(Double(offset.width / 5)))
+                            .offset(x: offset.width * 5, y: 0)
+                            .opacity(2 - Double(abs(offset.width / 50)))
+                            .gesture(
+                                DragGesture()
+                                    .onChanged {
+                                        gesture in
+                                        self.offset = gesture.translation
+                                    }
+                                .onEnded{
+                                    _ in
+                                    if (abs(self.offset.width) > 100)
+                                        {
+                                            print(self.offset.width)
+                                            if(self.offset.width > 0){
+                                                if(self.imageIndex >= self.classifieds.images.count - 1){
+                                                    self.imageIndex = 0
+                                                    self.offset.width = .zero
+                                                }else{
+                                                    self.imageIndex += 1
+                                                    self.offset.width = .zero
+                                                }
+                                                    
+                                            }else{
+                                                if(self.imageIndex <= 0){
+                                                    self.imageIndex = self.classifieds.images.count - 1
+                                                    self.offset.width = .zero
+
+                                                }else{
+                                                    self.imageIndex -= 1
+                                                    self.offset.width = .zero
+                                                }
+                                            }
+                                            print(self.imageIndex)
+                                    } else {
+                                        self.offset = .zero
+                                        }
+                            })
+                            Spacer()
+                        }
                    }
-               .navigationBarTitle("Create Classified")
-        }
+                    
+                    if(self.error != nil){
+                        Text(self.error!).foregroundColor(.red)
+                    }
+                    
+         }.navigationBarTitle("Create Classified")
     }
 }

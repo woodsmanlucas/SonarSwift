@@ -9,13 +9,53 @@
 import SwiftUI
 
 struct MessagesView: View {
+    @ObservedObject var inbox: InboxViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView{
+            if(self.inbox.conversations.count > 0){
+            ForEach(self.inbox.conversations, id: \._id){
+                conversation in
+                ConversationView(conversation: conversation, inbox: self.inbox)
+                }
+            }
+        }.onAppear{self.inbox.getConversations()}
+            .navigationBarTitle("Inbox")
     }
 }
 
-struct MessagesView_Previews: PreviewProvider {
-    static var previews: some View {
-        MessagesView()
+
+struct ConversationView: View {
+    var conversation: Conversation
+    var inbox: InboxViewModel
+    
+    var body: some View {
+        if(self.inbox.jwt.userId! == conversation.senderId){
+            return NavigationLink(destination: IndiviualConversationView(conversationId: self.conversation._id, otherUser: self.conversation.receiverId, inbox: self.inbox)){
+            VStack{
+                HStack{
+                Spacer()
+                Text(conversation.subject).bold()
+                Spacer(minLength: 20)
+                    Text("To: " + conversation.user[0].username)
+                }
+                Spacer()
+                }
+                Spacer()
+            }.foregroundColor(Color.black)
+        }else{
+            return NavigationLink(destination: IndiviualConversationView(conversationId: self.conversation._id, otherUser: self.conversation.senderId, inbox: self.inbox)){
+            VStack{
+                HStack{
+                Spacer()
+                Text(conversation.subject).bold()
+                Spacer(minLength: 20)
+                    Text("From: " + conversation.user[0].username)
+                }
+                Spacer()
+                }
+                Spacer()
+            }.foregroundColor(Color.black)
+        }
     }
 }

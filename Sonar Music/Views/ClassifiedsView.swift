@@ -16,7 +16,7 @@ struct ClassifiedsView: View {
     var body: some View {
         ScrollView(.vertical){
             VStack{
-                NavigationLink(destination: ClassifiedMapView(classifieds: self.viewModel.classifieds)) {
+                NavigationLink(destination: ClassifiedsMapView(classifieds: self.viewModel.classifieds)) {
                     Text("View the Map")
                 }
             ForEach(self.viewModel.classifieds, id: \._id, content: {classified in
@@ -29,14 +29,16 @@ struct ClassifiedsView: View {
 
 struct ClassifiedView: View {
     var classified: Classified
-    var pictureUrl: URL?
+    var pictureUrl: String?
     @ObservedObject var jwt: JWT
 
     init(_ classified: Classified, jwt: JWT) {
         self.classified = classified
         self.jwt = jwt
+        print(classified._id)
+        print(classified.pictures)
         if(classified.pictures.count > 0){
-            self.pictureUrl = URL(string: classified.pictures[0])!
+            self.pictureUrl = classified.pictures[0]
         }
         }
     
@@ -63,8 +65,7 @@ struct ClassifiedView: View {
                 Text(classified.title).bold()
                 Text(classified.description)
                     AsyncImage(
-                        url: url,
-                        placeholder: Text("Loading ...")
+                        url: url
                     ).aspectRatio(contentMode: .fit)
             }
                 }

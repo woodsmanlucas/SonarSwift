@@ -35,6 +35,7 @@ struct RateUser: View {
                 Button(action: {
                 let boolean = self.user.PostRatings(comment: self.comment, rating: self.rating)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+
                    // Excecute after 1 seconds
                 if (boolean) {
                     self.presentationMode.wrappedValue.dismiss()

@@ -43,7 +43,7 @@ struct EditProfilePictureView: View {
             
                 Button(action: {
                     self.profile.uploadPhoto(self.image)
-                    self.presentationMode.wrappedValue.dismiss()
+//                    self.presentationMode.wrappedValue.dismiss()
                     }) {
                                HStack {
                                    Text("Upload as my photo")
