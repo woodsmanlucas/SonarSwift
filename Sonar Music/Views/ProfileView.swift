@@ -10,7 +10,8 @@ import SwiftUI
 
 struct ProfileView: View {
     @ObservedObject var user: UserViewModel
-    let defaultURL = URL(string: "https://www.sonarmusic.social/profile.png")!
+    let defaultURL = "https://www.sonarmusic.social/profile.png"
+    @State var deleteProfile = false
     
     var body: some View {
         
@@ -19,15 +20,13 @@ struct ProfileView: View {
             if self.user.profile.count > 0 {
                 if self.user.profile[0].profilePicUrl != nil {
                 AsyncImage(
-                    url: URL(string: self.user.profile[0].profilePicUrl!)!,
-                    placeholder: Text("Loading ...")
+                    url: self.user.profile[0].profilePicUrl!
                 ).aspectRatio(contentMode: .fit)
                     .frame(width: 100, height: 100)
             }
             else {
                                 AsyncImage(
-                    url: self.defaultURL,
-                    placeholder: Text("Loading ...")
+                    url: self.defaultURL
                 ).aspectRatio(contentMode: .fit)
                 .frame(width:100, height: 100)
             }
@@ -40,7 +39,7 @@ struct ProfileView: View {
                     Text("Edit Your Profile")
                 }
                 
-                NavigationLink(destination: EditProfileLocation()){
+                NavigationLink(destination: EditProfileLocationView(profile: user)){
                     Text("Edit your location")
                 }
             }else{
@@ -114,6 +113,18 @@ struct ProfileView: View {
              Text("This user doesn't have any ratings")
             Spacer(minLength: 200)
             }
+            
+            if(user.jwt.userId == user.userId){
+                Button(action: {self.deleteProfile = true}){
+                ZStack{
+                RoundedRectangle(cornerRadius: 10).foregroundColor(Color.red)
+                    Text("Delete my profile").foregroundColor(Color.white)
+                }
+                }.frame(width: 200, height: 40)
+            }
+        }.sheet(isPresented: self.$deleteProfile)
+        {
+            DeleteProfileView(user: self.user)
         }.onAppear{self.user.GetProfile()
             self.user.GetRatings()
         }

@@ -37,7 +37,7 @@ struct ConversationView: View {
                 Spacer()
                 Text(conversation.subject).bold()
                 Spacer(minLength: 20)
-                Text("To: " + conversation.receiverId)
+                    Text("To: " + conversation.user[0].username)
                 }
                 Spacer()
                 }
@@ -50,7 +50,7 @@ struct ConversationView: View {
                 Spacer()
                 Text(conversation.subject).bold()
                 Spacer(minLength: 20)
-                Text("From: " + conversation.senderId)
+                    Text("From: " + conversation.user[0].username)
                 }
                 Spacer()
                 }

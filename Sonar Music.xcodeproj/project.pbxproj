@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A057498424FAAA2C000BDF4C /* NewConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057498324FAAA2C000BDF4C /* NewConversationView.swift */; };
-		A057498624FAAAE8000BDF4C /* MessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057498524FAAAE8000BDF4C /* MessagesViewModel.swift */; };
+		A057498624FAAAE8000BDF4C /* InboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057498524FAAAE8000BDF4C /* InboxViewModel.swift */; };
 		A057498C24FBE472000BDF4C /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057498B24FBE472000BDF4C /* RectangleView.swift */; };
 		A057498E2507F735000BDF4C /* MessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057498D2507F735000BDF4C /* MessagesView.swift */; };
 		A05749B0250A0C3D000BDF4C /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05749AF250A0C3D000BDF4C /* UserViewModel.swift */; };
@@ -17,6 +17,8 @@
 		A0768EF72517DCE7007CB64D /* KeyboardGuardian.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0768EF62517DCE7007CB64D /* KeyboardGuardian.swift */; };
 		A0768F1F251A1FE9007CB64D /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0768F1E251A1FE9007CB64D /* LocationViewModel.swift */; };
 		A0768F63251B868E007CB64D /* AddImageToClassified.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0768F62251B868E007CB64D /* AddImageToClassified.swift */; };
+		A0768FB3251F9DF9007CB64D /* EditProfileLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0768FB2251F9DF9007CB64D /* EditProfileLocationView.swift */; };
+		A0768FB52520D0F1007CB64D /* DeleteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0768FB42520D0F0007CB64D /* DeleteProfileView.swift */; };
 		A0AA9C5324E8283000DF3A6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C5224E8283000DF3A6C /* AppDelegate.swift */; };
 		A0AA9C5524E8283000DF3A6C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C5424E8283000DF3A6C /* SceneDelegate.swift */; };
 		A0AA9C5924E8283300DF3A6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0AA9C5824E8283300DF3A6C /* Assets.xcassets */; };
@@ -35,7 +37,7 @@
 		A0CD0E0D250B7A5B00868FE8 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD0E0C250B7A5B00868FE8 /* EditProfileView.swift */; };
 		A0CD0E0F250D0C1200868FE8 /* EditProfilePictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD0E0E250D0C1200868FE8 /* EditProfilePictureView.swift */; };
 		A0CD0E33250D20B700868FE8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD0E32250D20B700868FE8 /* ImagePicker.swift */; };
-		A0CD0E35250E65F300868FE8 /* EditProfileLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD0E34250E65F300868FE8 /* EditProfileLocation.swift */; };
+		A0CD0E35250E65F300868FE8 /* EditProfileLocationMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD0E34250E65F300868FE8 /* EditProfileLocationMap.swift */; };
 		A0CD0E372510F61D00868FE8 /* CreateClassifiedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD0E362510F61D00868FE8 /* CreateClassifiedView.swift */; };
 		A0CD0E3B2512349900868FE8 /* MyClassifiedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD0E3A2512349900868FE8 /* MyClassifiedsView.swift */; };
 		A0CD0E3D251241EF00868FE8 /* RateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CD0E3C251241EF00868FE8 /* RateUser.swift */; };
@@ -43,7 +45,7 @@
 
 /* Begin PBXFileReference section */
 		A057498324FAAA2C000BDF4C /* NewConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationView.swift; sourceTree = "<group>"; };
-		A057498524FAAAE8000BDF4C /* MessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesViewModel.swift; sourceTree = "<group>"; };
+		A057498524FAAAE8000BDF4C /* InboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewModel.swift; sourceTree = "<group>"; };
 		A057498B24FBE472000BDF4C /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 		A057498D2507F735000BDF4C /* MessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesView.swift; sourceTree = "<group>"; };
 		A05749AF250A0C3D000BDF4C /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
@@ -52,6 +54,8 @@
 		A0768EF62517DCE7007CB64D /* KeyboardGuardian.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardGuardian.swift; sourceTree = "<group>"; };
 		A0768F1E251A1FE9007CB64D /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		A0768F62251B868E007CB64D /* AddImageToClassified.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageToClassified.swift; sourceTree = "<group>"; };
+		A0768FB2251F9DF9007CB64D /* EditProfileLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileLocationView.swift; sourceTree = "<group>"; };
+		A0768FB42520D0F0007CB64D /* DeleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileView.swift; sourceTree = "<group>"; };
 		A0AA9C4F24E8283000DF3A6C /* Sonar Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sonar Music.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0AA9C5224E8283000DF3A6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0AA9C5424E8283000DF3A6C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -72,7 +76,7 @@
 		A0CD0E0C250B7A5B00868FE8 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		A0CD0E0E250D0C1200868FE8 /* EditProfilePictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfilePictureView.swift; sourceTree = "<group>"; };
 		A0CD0E32250D20B700868FE8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		A0CD0E34250E65F300868FE8 /* EditProfileLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileLocation.swift; sourceTree = "<group>"; };
+		A0CD0E34250E65F300868FE8 /* EditProfileLocationMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileLocationMap.swift; sourceTree = "<group>"; };
 		A0CD0E362510F61D00868FE8 /* CreateClassifiedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateClassifiedView.swift; sourceTree = "<group>"; };
 		A0CD0E3A2512349900868FE8 /* MyClassifiedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClassifiedsView.swift; sourceTree = "<group>"; };
 		A0CD0E3C251241EF00868FE8 /* RateUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateUser.swift; sourceTree = "<group>"; };
@@ -144,7 +148,7 @@
 				A057498D2507F735000BDF4C /* MessagesView.swift */,
 				A05749B1250A0C63000BDF4C /* ProfileView.swift */,
 				A0CD0E0C250B7A5B00868FE8 /* EditProfileView.swift */,
-				A0CD0E34250E65F300868FE8 /* EditProfileLocation.swift */,
+				A0CD0E34250E65F300868FE8 /* EditProfileLocationMap.swift */,
 				A0CD0E0E250D0C1200868FE8 /* EditProfilePictureView.swift */,
 				A0CD0E32250D20B700868FE8 /* ImagePicker.swift */,
 				A0CD0E362510F61D00868FE8 /* CreateClassifiedView.swift */,
@@ -152,6 +156,8 @@
 				A0CD0E3A2512349900868FE8 /* MyClassifiedsView.swift */,
 				A0CD0E3C251241EF00868FE8 /* RateUser.swift */,
 				A0768F62251B868E007CB64D /* AddImageToClassified.swift */,
+				A0768FB2251F9DF9007CB64D /* EditProfileLocationView.swift */,
+				A0768FB42520D0F0007CB64D /* DeleteProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -162,7 +168,7 @@
 				A0AA9C7724EAC6D500DF3A6C /* JWT.swift */,
 				A0AA9C7924ED790200DF3A6C /* ClassifiedsViewModel.swift */,
 				A0AA9C7D24F400BB00DF3A6C /* ImageLoader.swift */,
-				A057498524FAAAE8000BDF4C /* MessagesViewModel.swift */,
+				A057498524FAAAE8000BDF4C /* InboxViewModel.swift */,
 				A05749AF250A0C3D000BDF4C /* UserViewModel.swift */,
 				A0768F1E251A1FE9007CB64D /* LocationViewModel.swift */,
 			);
@@ -242,12 +248,13 @@
 			files = (
 				A0CD0E372510F61D00868FE8 /* CreateClassifiedView.swift in Sources */,
 				A0768EF72517DCE7007CB64D /* KeyboardGuardian.swift in Sources */,
+				A0768FB52520D0F1007CB64D /* DeleteProfileView.swift in Sources */,
 				A057498E2507F735000BDF4C /* MessagesView.swift in Sources */,
 				A0AA9C5324E8283000DF3A6C /* AppDelegate.swift in Sources */,
 				A0AA9C7424EAC2A300DF3A6C /* SplashPage.swift in Sources */,
 				A0CD0E33250D20B700868FE8 /* ImagePicker.swift in Sources */,
 				A0768F63251B868E007CB64D /* AddImageToClassified.swift in Sources */,
-				A057498624FAAAE8000BDF4C /* MessagesViewModel.swift in Sources */,
+				A057498624FAAAE8000BDF4C /* InboxViewModel.swift in Sources */,
 				A0AA9C7E24F400BB00DF3A6C /* ImageLoader.swift in Sources */,
 				A0768EF325179F2E007CB64D /* IndiviualConversationView.swift in Sources */,
 				A0AA9C7024E8544500DF3A6C /* ClassifiedsView.swift in Sources */,
@@ -257,8 +264,9 @@
 				A0AA9C8024F4017C00DF3A6C /* AsyncImage.swift in Sources */,
 				A0AA9C7A24ED790200DF3A6C /* ClassifiedsViewModel.swift in Sources */,
 				A05749B2250A0C63000BDF4C /* ProfileView.swift in Sources */,
+				A0768FB3251F9DF9007CB64D /* EditProfileLocationView.swift in Sources */,
 				A0CD0E3B2512349900868FE8 /* MyClassifiedsView.swift in Sources */,
-				A0CD0E35250E65F300868FE8 /* EditProfileLocation.swift in Sources */,
+				A0CD0E35250E65F300868FE8 /* EditProfileLocationMap.swift in Sources */,
 				A0AA9C6E24E853BA00DF3A6C /* RegisterView.swift in Sources */,
 				A057498424FAAA2C000BDF4C /* NewConversationView.swift in Sources */,
 				A0CD0E0F250D0C1200868FE8 /* EditProfilePictureView.swift in Sources */,

@@ -12,6 +12,39 @@ struct ClassifiedJsonResponse: Codable {
     var success: Bool
     var classifieds: [Classified]
 }
+//            postString = "title=\(title)&description=\(description)&tags=\(tags)&pictures=\(imageURLs)&type=\(type)"
+struct MyClassifiedJsonResponse: Codable {
+    var success: Bool
+    var ad: [MyClassified]
+}
+
+struct CreateClassifiedJsonWithPrice: Codable {
+    var title: String
+    var description: String
+    var tags: [String]
+    var pictures: [String]
+    var type: String
+    var price: Double
+}
+
+struct CreateClassifiedJsonWithoutPrice: Codable {
+    var title: String
+    var description: String
+    var tags: [String]
+    var pictures: [String]
+    var type: String
+}
+
+struct CreateClassifiedJsonResponse: Codable {
+    var success: Bool
+}
+
+
+
+struct CreateClassifiedErrorJsonResponse: Codable {
+    var success: Bool
+    var err: String
+}
 
 struct Classified: Codable {
     var _id: String
@@ -21,8 +54,21 @@ struct Classified: Codable {
     var title: String
     var description: String
     var type: String
+    var price: Double?
     var yearsOfExperience: String?
     var user: [User?]
+}
+
+struct MyClassified: Codable {
+    var _id: String
+    var datePosted: Int
+    var pictures: [String]
+    var tags: [String]
+    var title: String
+    var description: String
+    var type: String
+    var price: Double?
+    var yearsOfExperience: String?
 }
 
 struct User: Codable {
@@ -35,11 +81,19 @@ struct User: Codable {
 }
 
 class ClassifiedsViewModel: ObservableObject {
+    @ObservedObject var jwt: JWT
+    
     @Published private(set) var classifieds: [Classified] = []
+    @Published private(set) var myClassifieds: [MyClassified] = []
     @Published private(set) var loaded = false
     @Published private(set) var images: [UIImage] = []
+    
     private var image: UIImage?
     private var imageURLs: [String] = []
+    
+    init(jwt: JWT){
+        self.jwt = jwt
+    }
 
     func GetClassifieds() {
         // Prepare URL
@@ -82,8 +136,160 @@ class ClassifiedsViewModel: ObservableObject {
     task.resume()
     }
     
-    func CreateClassified(_ jwtToken: String, title: String, description: String, type: String){
+    func CreateClassified(_ jwtToken: String, title: String, description: String, type: String, price: Double?, tags: [String]) -> Result<String?, NetworkError>{
         print(imageURLs)
+        
+        var result: Result<String?, NetworkError> = .failure(.unknown)
+               
+               let semaphore = DispatchSemaphore(value: 0)
+               
+               
+               // Prepare URL
+               let array: [String] = []
+               
+                  print("\(array)")
+                  let url = URL(string: "https://www.sonarmusic.social/api/classifieds/user")
+                  guard let requestUrl = url else { fatalError() }
+                  
+                  // Prepare URL Request Object
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "POST"
+        
+            //set JWT
+        request.setValue(self.jwt.token!, forHTTPHeaderField: "Authorization")
+               
+                  // HTTP Request Parameters which will be sent in HTTP Request Body
+        let postString: String
+        if(price != nil){
+            postString = "title=\(title)&description=\(description)&pictures=\(imageURLs)&tags=\(tags)&type=\(type)&price=\(price!)";
+        }else{
+            postString = "title=\(title)&description=\(description)&tags=\(tags)&pictures=\(imageURLs)&type=\(type)"
+        }
+        print(postString)
+
+
+                  // Set HTTP Request Body
+                request.httpBody = postString.data(using: String.Encoding.utf8)
+        
+//                let encoder = JSONEncoder()
+//                let jsonData: Data?
+//                if(price != nil){
+//                    let newClassified = CreateClassifiedJsonWithPrice(title: title, description: description, tags: tags, pictures: imageURLs, type: type, price: price!)
+//                    jsonData = try? encoder.encode(newClassified)
+//                }else{
+//                    let newClassified = CreateClassifiedJsonWithoutPrice(title: title, description: description, tags: tags, pictures: imageURLs, type: type)
+//                    jsonData = try? encoder.encode(newClassified)
+//                }
+            
+                // Set HTTP Request Body
+//                request.httpBody = jsonData
+                  
+                  // Perform HTTP Request
+                  let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                      
+                      // Check for Error
+                      if let error = error {
+                          print("Error took place \(error)")
+                          return
+                      }
+               
+                      // Convert HTTP Response Data to a String
+                      if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                       print("Response data string:\n \(dataString)")
+                       do{
+                        let JSONresponse = try JSONDecoder().decode(CreateClassifiedJsonResponse.self, from: data)
+                        if(JSONresponse.success){
+                            result = .success(nil)
+                        }else{
+                            let error = try JSONDecoder().decode(CreateClassifiedErrorJsonResponse.self, from: data)
+                            result = .success(error.err)
+                        }
+                       } catch let error as NSError {
+                            print("Failed to load: \(error.localizedDescription)")
+                            result = .success(dataString)
+                       }
+                       
+                   }
+                   semaphore.signal()
+
+                  }
+                  task.resume()
+               
+                   _ = semaphore.wait(wallTimeout: .distantFuture)
+               
+               return result
+    }
+    
+    func getMyClassifeds(){
+        // Prepare URL
+        let url = URL(string: "https://www.sonarmusic.social/api/classifieds/userAd/" + self.jwt.userId!)
+               guard let requestUrl = url else { fatalError() }
+           
+               // Prepare URL Request Object
+               let request = URLRequest(url: requestUrl)
+        
+           
+               // Perform HTTP Request
+               let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+               
+                   // Check for Error
+                   if let error = error {
+                       print("Error took place \(error)")
+                       return
+                   }
+        
+                   // Convert HTTP Response Data to a String
+                   if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                    print(dataString)
+                   do{
+                       let classifiedData = try JSONDecoder().decode(MyClassifiedJsonResponse.self, from: data)
+                       if classifiedData.success{
+                           DispatchQueue.main.async {
+                               self.myClassifieds = classifiedData.ad
+                               print("classified \(self.myClassifieds)")
+
+                           }
+                       }
+                   } catch let error as NSError {
+                       print("Failed to load: \(error.localizedDescription)")
+                   }
+
+               }
+        }
+        task.resume()
+    }
+    
+    func delete(_ classifiedId: String) {
+        print(classifiedId)
+        
+        // Prepare URL
+        let url = URL(string: "https://www.sonarmusic.social/api/classifieds/user/" + classifiedId)
+        guard let requestUrl = url else { fatalError() }
+           
+        // Prepare URL Request Object
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "DELETE"
+
+        request.setValue(self.jwt.token!, forHTTPHeaderField: "Authorization")
+        
+           
+               // Perform HTTP Request
+               let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+               
+                   // Check for Error
+                   if let error = error {
+                       print("Error took place \(error)")
+                       return
+                   }
+        
+                   // Convert HTTP Response Data to a String
+                   if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                    print(dataString)
+               }
+        }
+        task.resume()
+        
+        
     }
     
     func uploadPhoto(_ image: UIImage, jwt: JWT){
@@ -159,7 +365,6 @@ class ClassifiedsViewModel: ObservableObject {
         }).resume()
         }
     }
-    
     
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
            let size = image.size

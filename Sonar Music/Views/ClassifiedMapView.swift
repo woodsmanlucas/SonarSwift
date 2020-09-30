@@ -18,11 +18,35 @@ struct Location{
 }
 
 
-struct ClassifiedMapView: UIViewRepresentable {
+struct ClassifiedsMapView: View {
+    var classifieds: [Classified]
+
+    var body: some View {
+        ClassifiedsMap(classifieds: classifieds)
+    }
+}
+
+
+
+struct ClassifiedsMap: UIViewRepresentable {
+    @ObservedObject var lm = LocationManager()
     var classifieds: [Classified]
     
     func updateUIView(_ view: MKMapView, context: Context){        view.mapType = MKMapType.standard // (satellite)
-
+        if(view.region.center.latitude == 49.2577143 && view.region.center.longitude == -123.1939435){
+        let coordinate = lm.location != nil ? lm.location!.coordinate : CLLocationCoordinate2D(
+            latitude: 49.2577143, longitude: -123.1939435)
+        let span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
+        
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        view.setRegion(region, animated: true)
+        }
+        
+    }
+    
+    func makeUIView(context: Context) -> MKMapView {
+          let view = MKMapView(frame: .zero)
+        
         let coordinate = CLLocationCoordinate2D(
             latitude: 49.2577143, longitude: -123.1939435)
         let span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
@@ -58,10 +82,8 @@ struct ClassifiedMapView: UIViewRepresentable {
                 annotation.title = location.title
                 annotation.subtitle = location.subtitle
             view.addAnnotation(annotation)
+            
         }
-    }
-    
-    func makeUIView(context: Context) -> MKMapView {
-            MKMapView(frame: .zero)
+        return view
     }
 }

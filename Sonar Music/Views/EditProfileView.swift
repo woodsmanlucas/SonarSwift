@@ -82,8 +82,8 @@ struct EditProfileView: View {
                 self.links.append("")
             }
             Button(action: {
-                self.profile.EditProfile(username: self.username, firstName: self.firstName, lastName: self.lastName, instrumentsPlayed: self.instrumentsPlayed, experience: self.experience, links: self.links)
-                self.presentationMode.wrappedValue.dismiss()
+                self.profile.EditProfile(username: self.username, firstName: self.firstName, lastName: self.lastName, instrumentsPlayed: self.instrumentsPlayed, experiences: self.experience, links: self.links)
+//                self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Submit")
             })

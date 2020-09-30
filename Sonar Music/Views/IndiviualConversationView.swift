@@ -18,8 +18,8 @@ struct IndiviualConversationView: View {
     let conversationId: String
     let otherUser: String
     @ObservedObject var inbox: InboxViewModel
-    @ObservedObject private var kGuardian = KeyboardGuardian(textFieldCount: 1)
     @State var newMessage = ""
+    @State var messages: [Message] = []
     @State private var keyboardHeight: CGFloat = 0
     
     func isUserInformationValid() -> Bool {
@@ -40,32 +40,56 @@ struct IndiviualConversationView: View {
     }
     
     var body: some View {
-        VStack{
+        GeometryReader { geometry in
+            VStack{
+            if(self.messages.count > 0){
             ScrollView(.vertical){
-                if(self.inbox.messages.count > 0){
-                ForEach(self.inbox.messages, id: \._id){
+                ForEach(self.messages, id: \._id){
                     message in
-                    MessageView(message: message, otherUser: self.otherUser, height: self.getHeight(message.msg.count) )
+//                    Text(message.msg)
+                                        MessageView(message: message, otherUser: self.otherUser, height: self.getHeight(message.msg.count) )
                 }
+                }.padding(20)
             }
             Spacer()
-                }.padding(20)
             HStack{
-                TextField("Message", text: $newMessage)
+                TextField("Message", text: self.$newMessage)
                     Button(action: {
                         self.inbox.sendMessage(otherUser: self.otherUser, newMessage: self.newMessage, conversationId: self.conversationId )
                         self.newMessage = ""
-                        self.inbox.getMessages(self.conversationId)
+                        DispatchQueue.global(qos: .utility).async {
+                        let result = self.inbox.getMessages(self.conversationId)
+                                DispatchQueue.main.async {
+                                    switch result {
+                                        case let .success(data):
+                                            self.messages = data
+                                        case let .failure(data):
+                                            print(data)
+                                    }
+                        }
+                        }
                     }) {
                     Text("Send")
                 }.disabled(!self.isUserInformationValid())
-            }.frame(width: UIScreen.screenWidth, height: 40)
+                }.frame(width: geometry.size.width - 40, height: 40).padding(20)
+            }
         }
-            .onAppear{
-            self.inbox.getMessages(self.conversationId)
-        }.offset(y: kGuardian.slide).animation(.easeInOut(duration: 1.0))
-        
-        
+        .onAppear{
+            if(self.messages.isEmpty){
+                DispatchQueue.global(qos: .utility).async {
+                    let result = self.inbox.getMessages(self.conversationId)
+                    DispatchQueue.main.async {
+                        switch result {
+                        case let .success(data):
+                            self.messages = data
+                            print("messages \(self.messages)")
+                        case let .failure(data):
+                            print(data)
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

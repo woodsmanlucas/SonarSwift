@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ProfileJsonResponse: Codable {
     var success: Bool
@@ -23,6 +24,8 @@ struct Profile: Codable {
     var links: [String]
     var genre: [String]
     var profilePicUrl: String?
+    var lat: Double?
+    var lng: Double?
 }
 
 struct RatingJsonResponse: Codable, Equatable {
@@ -56,6 +59,7 @@ class UserViewModel: ObservableObject {
     @Published private(set) var loaded = false
     @Published var userId: String
     @Published var ratings: RatingJsonResponse?
+    var location: CLLocationCoordinate2D?
     
     init(_ user_id: String, jwt: JWT){
         self.userId = user_id
@@ -174,6 +178,81 @@ class UserViewModel: ObservableObject {
 
     }
     
+    func updateLocation() {
+        guard userId == jwt.userId else {return}
+        guard location != nil else {return}
+                
+                // Prepare URL
+                   let url = URL(string: "https://www.sonarmusic.social/api/users/")
+                   guard let requestUrl = url else { fatalError() }
+                   
+                   // Prepare URL Request Object
+                   var request = URLRequest(url: requestUrl)
+                   request.httpMethod = "PATCH"
+                
+                    //set JWT
+                request.setValue(self.jwt.token!, forHTTPHeaderField: "Authorization")
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+                   // HTTP Request Parameters which will be sent in HTTP Request Body
+        let postString = "{\n    \"lat\": \"\(location!.latitude)\",\"lng\": \"\(location!.longitude)\"\n}"
+                
+        //        "&instrumentsPlayed=\(instrumentsPlayed)&experience=\(experienceConverted)&links=\(links)";
+
+                   // Set HTTP Request Body
+                request.httpBody = postString.data(using: .utf8);
+                
+                   // Perform HTTP Request
+                   let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                       
+                       // Check for Error
+                       if let error = error {
+                           print("Error took place \(error)")
+                           return
+                       }
+                
+                       // Convert HTTP Response Data to a String
+                       if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                           print("Response data string:\n \(dataString)")
+                       }
+
+                   }
+                   task.resume()
+    }
+    
+    func DeleteProfile() {
+                guard userId == jwt.userId else {return}
+                
+                // Prepare URL
+                   let url = URL(string: "https://www.sonarmusic.social/api/users/")
+                   guard let requestUrl = url else { fatalError() }
+                   
+                   // Prepare URL Request Object
+                   var request = URLRequest(url: requestUrl)
+                   request.httpMethod = "DELETE"
+                
+                    //set JWT
+                request.setValue(self.jwt.token!, forHTTPHeaderField: "Authorization")
+
+                
+                   // Perform HTTP Request
+                   let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                       
+                       // Check for Error
+                       if let error = error {
+                           print("Error took place \(error)")
+                           return
+                       }
+                
+                       // Convert HTTP Response Data to a String
+                       if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                           print("Response data string:\n \(dataString)")
+                       }
+
+                   }
+                   task.resume()
+    }
+    
     func GetRatings(){
                         let url = URL(string: ("https://www.sonarmusic.social/api/ratings/" + userId))
                    guard let requestUrl = url else { fatalError() }
@@ -254,6 +333,7 @@ class UserViewModel: ObservableObject {
     }
     
     func uploadPhoto(_ image: UIImage){
+        if(image.pngData() != nil){
         print("hello")
         
         let filename = UUID().uuidString + ".png"
@@ -317,6 +397,7 @@ class UserViewModel: ObservableObject {
                 print("Failed to load: \(error.localizedDescription)")
             }
         }).resume()
+        }
     }
   
     
@@ -324,7 +405,7 @@ class UserViewModel: ObservableObject {
     
      
         
-    func EditProfile(username: String, firstName: String, lastName: String, instrumentsPlayed: [String], experience: [String], links: [String]) {
+    func EditProfile(username: String, firstName: String, lastName: String, instrumentsPlayed: [String], experiences: [String], links: [String]) {
         guard userId == jwt.userId else {return}
         
         // Prepare URL
@@ -337,43 +418,46 @@ class UserViewModel: ObservableObject {
         
             //set JWT
         request.setValue(self.jwt.token!, forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
         
+        
+        var experienceConverted: [Int] = []
+        let calendar = Calendar.current
+
+        let today = NSDate()
+        let january1970 = NSDate(timeIntervalSince1970: 0)
+        
+        let secondsFrom1970 = calendar.dateComponents([.second], from: january1970 as Date, to: today as Date)
+
             //Convert Experience back to milliseconds from 1970
+        experiences.forEach { experience in
+            experienceConverted.append(secondsFrom1970.second!*1000 - Int((Double(experience)!*31556952000.0)))
+        }        
+
+           // HTTP Request Parameters which will be sent in HTTP Request Body
+        let postString = "{\n    \"firstName\": \"\(firstName)\",\"username\": \"\(username)\",\"lastName\":\"\(lastName)\",\"instrumentsPlayed\":\(instrumentsPlayed),\"experience\":\(experienceConverted),\"links\":\(links)\n}"
         
+//        "&instrumentsPlayed=\(instrumentsPlayed)&experience=\(experienceConverted)&links=\(links)";
+
+           // Set HTTP Request Body
+        request.httpBody = postString.data(using: .utf8);
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-//           // HTTP Request Parameters which will be sent in HTTP Request Body
-//        let postString = "username=\(username)&firstName=\(firstName)&lastName=\(lastName)&instrumentsPlayed=\(instrumentsPlayed)&links=\(links)";
+//        // your post request data
+//        let postDict : [String: Any] = ["username": username,
+//                                        "firstName": firstName,
+//                                        "lastName": lastName,
+//                                        "links": links,
+//                                        "instrumentsPlayed":instrumentsPlayed,
+//                                        "experience":experienceConverted]
 //
-//           // Set HTTP Request Body
-//           request.httpBody = postString.data(using: String.Encoding.utf8);
-        
-        // your post request data
-        let postDict : [String: Any] = ["username": username,
-                                        "firstName": firstName,
-                                        "lastName": lastName,
-                                        "links": links]
+//        guard let postData = try? JSONSerialization.data(withJSONObject: postDict, options: []) else {
+//            return
+//        }
+//
+//        print(postDict)
 
-        guard let postData = try? JSONSerialization.data(withJSONObject: postDict, options: []) else {
-            return
-        }
-        
-        print(postDict)
-
-        request.httpBody = postData
+//        request.httpBody = postData
         
            // Perform HTTP Request
            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in

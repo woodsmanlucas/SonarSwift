@@ -17,7 +17,7 @@ struct RegisterView: View {
     @State var password: String = ""
     @State var error: String?
     @ObservedObject var jwt: JWT
-    var messageUser: String = "" //User Id of user to be messaged
+    var messageUser: String? //User Id of user to be messaged
 
     
    
@@ -48,7 +48,7 @@ struct RegisterView: View {
                 if self.isUserInformationValid() {
                     Button(action: {
                         DispatchQueue.global(qos: .utility).async {
-                        let result = self.jwt.register(email: self.email, username: self.username, firstName: self.firstName, lastName: self.lastName, password: self.password)
+                            let result = self.jwt.register(email: self.email, username: self.username, firstName: self.firstName, lastName: self.lastName, password: self.password, self.messageUser)
                         DispatchQueue.main.async {
                             switch result {
                             case let .success(data):
@@ -68,12 +68,6 @@ struct RegisterView: View {
                 
                 if error != nil {
                     Text(error!).foregroundColor(Color.red)
-                }
-                
-                if messageUser != "" {
-                    
-                NavigationLink(destination: NewConversationView(userId: messageUser, jwt: jwt), isActive: $jwt.pushed) { EmptyView() }
-                    
                 }
             }
         .navigationBarTitle("Register")

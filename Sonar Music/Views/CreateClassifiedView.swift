@@ -17,6 +17,10 @@ struct CreateClassifiedView: View {
     @State var price: Double = 0
     @State var imageIndex: Int = 0
     @State var offset = CGSize.zero
+    @State var tags: [String] = []
+    @State var error: String?
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
     
     enum types: String, CaseIterable, Identifiable {
         case Buy
@@ -61,7 +65,27 @@ struct CreateClassifiedView: View {
 
                        if (self.isUserInformationValid()) {
                            Button(action: {
-                            self.classifieds.CreateClassified(self.jwt.token!, title: self.title, description: self.description, type: self.state.rawValue.replacingOccurrences(of: "_", with: " "))
+                            DispatchQueue.global(qos: .utility).async {
+                                let result: Result<String?, NetworkError>
+                            if(self.state.rawValue == "Buy" || self.state.rawValue == "Sell"){
+                                result = self.classifieds.CreateClassified(self.jwt.token!, title: self.title, description: self.description, type: self.state.rawValue.replacingOccurrences(of: "_", with: " "), price: self.price, tags: self.tags)
+                            }else{
+                                result = self.classifieds.CreateClassified(self.jwt.token!, title: self.title, description: self.description, type: self.state.rawValue.replacingOccurrences(of: "_", with: " "), price: nil, tags: self.tags)
+                            }
+                                DispatchQueue.main.async {
+                                switch result {
+                                case let .success(data):
+                                    if(data != nil){
+                                        self.error = data
+                                    }else{
+                                        self.presentationMode.wrappedValue.dismiss()
+
+                                        }
+                                case let .failure(data):
+                                    print(data)
+                                    }
+                                }
+                            }
                            }, label: {
                                Text("Create Classified")
                            })
@@ -113,8 +137,12 @@ struct CreateClassifiedView: View {
                             })
                             Spacer()
                         }
-                        
                    }
+                    
+                    if(self.error != nil){
+                        Text(self.error!).foregroundColor(.red)
+                    }
+                    
          }.navigationBarTitle("Create Classified")
     }
 }

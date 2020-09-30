@@ -19,18 +19,21 @@ class JWT: ObservableObject {
     @Published private(set) var userId: String?
     @Published var pushed = false
     @Published var error: String?
+    @Published var messageUser: String?
     
     func logout(){
         token = nil
         userId = nil
     }
     
-    func login(_ email: String, _ password: String) -> Result<String?, NetworkError>{
+    func login(_ email: String, _ password: String, _ messageUserId: String?) -> Result<String?, NetworkError>{
+        DispatchQueue.main.async {
+        self.messageUser = messageUserId
+        }
         
         var result: Result<String?, NetworkError> = .failure(.unknown)
         
         let semaphore = DispatchSemaphore(value: 0)
-
         
         // Prepare URL
         let url = URL(string: "https://www.sonarmusic.social/api/auth/login")
@@ -65,7 +68,9 @@ class JWT: ObservableObject {
                             print(token)
                             DispatchQueue.main.async {
                                 self.token = token
-                                self.pushed = true
+                                if(messageUserId != ""){
+                                    self.pushed = true
+                                }
                             }
                         }
                         if let user = json["user"] as? String{
@@ -98,7 +103,11 @@ class JWT: ObservableObject {
         return result
     }
     
-    func register(email: String, username: String, firstName: String, lastName: String, password: String) -> Result<String?, NetworkError>{
+    func register(email: String, username: String, firstName: String, lastName: String, password: String, _ messageUserId: String?) -> Result<String?, NetworkError>{
+        
+        DispatchQueue.main.async {
+        self.messageUser = messageUserId
+        }
         
         var result: Result<String?, NetworkError> = .failure(.unknown)
         

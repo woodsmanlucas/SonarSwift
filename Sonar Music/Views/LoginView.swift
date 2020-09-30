@@ -13,8 +13,7 @@ struct LoginView: View {
     @State var email: String = "woodsman.lucas@gmail.com"
     @State var password: String = "P@ssw0rd"
     @ObservedObject var jwt: JWT
-    var messageUser: String = ""
-    let Classifieds = ClassifiedsViewModel()
+    var messageUser: String?
     @State var error: String?
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
@@ -39,7 +38,7 @@ struct LoginView: View {
                 if self.isUserInformationValid() {
                     Button(action: {
                         DispatchQueue.global(qos: .utility).async {
-                            let result = self.jwt.login(self.email, self.password)
+                            let result = self.jwt.login(self.email, self.password, self.messageUser)
                             DispatchQueue.main.async {
                                 switch result {
                                 case let .success(data):
@@ -63,13 +62,6 @@ struct LoginView: View {
                 }
             }
         .navigationBarTitle("Login")
-
-                
-                if messageUser != "" {
-                    
-                NavigationLink(destination: NewConversationView(userId: messageUser, jwt: jwt), isActive: $jwt.pushed) { EmptyView() }
-                    
-                }
-        }
     }
+}
 }
