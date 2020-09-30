@@ -19,6 +19,7 @@
 		A0768F63251B868E007CB64D /* AddImageToClassified.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0768F62251B868E007CB64D /* AddImageToClassified.swift */; };
 		A0768FB3251F9DF9007CB64D /* EditProfileLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0768FB2251F9DF9007CB64D /* EditProfileLocationView.swift */; };
 		A0768FB52520D0F1007CB64D /* DeleteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0768FB42520D0F0007CB64D /* DeleteProfileView.swift */; };
+		A0768FFB2524CEA7007CB64D /* KeyboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0768FFA2524CEA6007CB64D /* KeyboardExtensions.swift */; };
 		A0AA9C5324E8283000DF3A6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C5224E8283000DF3A6C /* AppDelegate.swift */; };
 		A0AA9C5524E8283000DF3A6C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C5424E8283000DF3A6C /* SceneDelegate.swift */; };
 		A0AA9C5924E8283300DF3A6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0AA9C5824E8283300DF3A6C /* Assets.xcassets */; };
@@ -56,6 +57,7 @@
 		A0768F62251B868E007CB64D /* AddImageToClassified.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImageToClassified.swift; sourceTree = "<group>"; };
 		A0768FB2251F9DF9007CB64D /* EditProfileLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileLocationView.swift; sourceTree = "<group>"; };
 		A0768FB42520D0F0007CB64D /* DeleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileView.swift; sourceTree = "<group>"; };
+		A0768FFA2524CEA6007CB64D /* KeyboardExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardExtensions.swift; sourceTree = "<group>"; };
 		A0AA9C4F24E8283000DF3A6C /* Sonar Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sonar Music.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0AA9C5224E8283000DF3A6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0AA9C5424E8283000DF3A6C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			children = (
 				A0AA9C5224E8283000DF3A6C /* AppDelegate.swift */,
 				A0AA9C5424E8283000DF3A6C /* SceneDelegate.swift */,
+				A0768FFA2524CEA6007CB64D /* KeyboardExtensions.swift */,
 				A0AA9C7224EAC0E500DF3A6C /* ViewModels */,
 				A0AA9C6A24E8353400DF3A6C /* Views */,
 				A0AA9C5824E8283300DF3A6C /* Assets.xcassets */,
@@ -266,6 +269,7 @@
 				A05749B2250A0C63000BDF4C /* ProfileView.swift in Sources */,
 				A0768FB3251F9DF9007CB64D /* EditProfileLocationView.swift in Sources */,
 				A0CD0E3B2512349900868FE8 /* MyClassifiedsView.swift in Sources */,
+				A0768FFB2524CEA7007CB64D /* KeyboardExtensions.swift in Sources */,
 				A0CD0E35250E65F300868FE8 /* EditProfileLocationMap.swift in Sources */,
 				A0AA9C6E24E853BA00DF3A6C /* RegisterView.swift in Sources */,
 				A057498424FAAA2C000BDF4C /* NewConversationView.swift in Sources */,

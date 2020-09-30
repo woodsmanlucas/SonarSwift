@@ -438,8 +438,6 @@ class UserViewModel: ObservableObject {
            // HTTP Request Parameters which will be sent in HTTP Request Body
         let postString = "{\n    \"firstName\": \"\(firstName)\",\"username\": \"\(username)\",\"lastName\":\"\(lastName)\",\"instrumentsPlayed\":\(instrumentsPlayed),\"experience\":\(experienceConverted),\"links\":\(links)\n}"
         
-//        "&instrumentsPlayed=\(instrumentsPlayed)&experience=\(experienceConverted)&links=\(links)";
-
            // Set HTTP Request Body
         request.httpBody = postString.data(using: .utf8);
         

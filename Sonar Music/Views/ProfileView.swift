@@ -21,8 +21,12 @@ struct ProfileView: View {
                 if self.user.profile[0].profilePicUrl != nil {
                 AsyncImage(
                     url: self.user.profile[0].profilePicUrl!
-                ).aspectRatio(contentMode: .fit)
+                    )
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 100, height: 100)
+                    .clipped()
+                    .cornerRadius(100)
+
             }
             else {
                                 AsyncImage(

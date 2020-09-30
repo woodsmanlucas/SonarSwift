@@ -61,13 +61,13 @@ struct EditProfileView: View {
                 }
             }
             ZStack{
-                RoundedRectangle(cornerRadius: 10.0).foregroundColor(Color.green)
-                Text("+").foregroundColor(Color.white)
-            }.onTapGesture {
-                self.instrumentsPlayed.append("")
-                self.experience.append("")
-                print(self.instrumentsPlayed)
-            }
+                    RoundedRectangle(cornerRadius: 10.0).foregroundColor(Color.green)
+                    Text("+").foregroundColor(Color.white)
+                }.onTapGesture {
+                    self.instrumentsPlayed.append("")
+                    self.experience.append("")
+                    print(self.instrumentsPlayed)
+                }
             Text("Links:").bold()
             VStack{
                 ForEach(0..<links.count, id: \.self){

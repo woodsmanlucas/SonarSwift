@@ -44,14 +44,16 @@ struct EditProfileLocationMap: UIViewRepresentable {
             
         if (pav == nil)
         {
-        if annotation.title! == "your ads will appear here" {
             pav = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+
+        if annotation.title! == "your ads will appear here" {
             pav?.isDraggable = true;
             pav?.canShowCallout = true;
             pav?.pinTintColor = UIColor.purple
             } else {
-            pav = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
                 pav?.pinTintColor = UIColor.green
+            pav?.canShowCallout = true;
+
             }
         }
         else
