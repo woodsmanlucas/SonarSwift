@@ -1,3 +1,4 @@
 EULA
 Push Notifications
 Reset Password?
+Fix register (no error on short username)
