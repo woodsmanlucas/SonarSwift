@@ -2,4 +2,4 @@ EULA
 Push Notifications
 Reset Password?
 Fix register (no error on short username)
-More button on classifieds
+More button on classifieds (crashes on large numbers of classifieds)
