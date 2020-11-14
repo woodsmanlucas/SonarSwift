@@ -29,8 +29,18 @@ struct NewConversationView: View {
             TextField("Subject", text: $subject)
             
             if (self.isConversationInformationValid()){
-                Button(action: {self.inbox.createConversation(subject: self.subject, receiverId: self.userId)
-                    self.ConversationCreated = true
+                Button(action: {
+                    DispatchQueue.global(qos: .utility).async {
+                    let result = self.inbox.createConversation(subject: self.subject, receiverId: self.userId)
+                        DispatchQueue.main.async {
+                            switch result{
+                            case .success(_):
+                                self.ConversationCreated = true
+                            case let .failure(data):
+                                print(data)
+                            }
+                        }
+                    }
                 }){
                 Text("Create a new Conversation")
             }

@@ -57,8 +57,8 @@ struct IndiviualConversationView: View {
                         }
                     }) {
                     Text("Send")
-                }.disabled(!self.isUserInformationValid())
-                }.frame(width: geometry.size.width - 40, height: 40).padding(20)
+                    }.disabled(!self.isUserInformationValid()).padding(20)
+                }.frame(width: geometry.size.width, height: 40)
             }
         }.padding(.bottom, keyboardHeight)
         .onReceive(Publishers.keyboardHeight) { self.keyboardHeight = $0 }

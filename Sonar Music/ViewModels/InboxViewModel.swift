@@ -101,7 +101,10 @@ class InboxViewModel: ObservableObject {
            task.resume()
     }
     
-    func createConversation(subject: String, receiverId: String) {
+    func createConversation(subject: String, receiverId: String) -> Result<String?, NetworkError> {
+        
+        var result: Result<String?, NetworkError> = .failure(.unknown)
+
         let semaphore = DispatchSemaphore (value: 0)
 
         let parameters = "{\n    \"receiverId\": \"\(receiverId)\",\n    \"subject\": \"\(subject)\"\n}"
@@ -128,15 +131,22 @@ class InboxViewModel: ObservableObject {
                 if inboxData.success{
                     DispatchQueue.main.async {
                         self.conversationId = inboxData.convo._id
+                        result = .success(nil)
+                        semaphore.signal()
+
                     }
                         }
                     } catch let error as NSError {
                         print("Failed to load: \(error.localizedDescription)")
+                        result = .failure(.server)
+                        semaphore.signal()
+
                     }
             }
-            semaphore.signal()
         }.resume()
         semaphore.wait()
+    
+        return result
     }
     
     func getMessages(_ conversationId: String) -> Result<[Message], NetworkError> {

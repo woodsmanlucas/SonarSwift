@@ -10,8 +10,8 @@ import Combine
 import SwiftUI
 
 struct LoginView: View {
-    @State var email: String = "woodsman.lucas@gmail.com"
-    @State var password: String = "P@ssw0rd"
+    @State var email: String = ""
+    @State var password: String = ""
     @ObservedObject var jwt: JWT
     var messageUser: String?
     @State var error: String?
@@ -32,7 +32,7 @@ struct LoginView: View {
         var body: some View {
             VStack{
             Form{
-                TextField("Email", text: $email)
+                TextField("Email", text: $email).keyboardType(.emailAddress)
                 SecureField("Password", text: $password)
                 
                 if self.isUserInformationValid() {
