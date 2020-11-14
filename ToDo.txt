@@ -8,3 +8,5 @@ Message people other than classified
 Hide link in message myself
 Postive feedback on update location
 Reformat edit profile page
+Remove my login info
+
