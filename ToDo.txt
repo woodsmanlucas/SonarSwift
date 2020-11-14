@@ -7,3 +7,4 @@ More button on classifieds (crashes on large numbers of classifieds)
 Message people other than classified
 Hide link in message myself
 Postive feedback on update location
+Reformat edit profile page
