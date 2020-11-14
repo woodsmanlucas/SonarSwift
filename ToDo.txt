@@ -2,4 +2,8 @@ EULA
 Push Notifications
 Reset Password?
 Fix register (no error on short username)
+Fix login (kind of clunky and doesn't show wrong passwords) (email keyboard)
 More button on classifieds (crashes on large numbers of classifieds)
+Message people other than classified
+Hide link in message myself
+Postive feedback on update location
