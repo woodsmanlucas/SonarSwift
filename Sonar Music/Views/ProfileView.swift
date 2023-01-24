@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @ObservedObject var user: UserViewModel
-    let defaultURL = "https://www.sonarmusic.social/profile.png"
+    let defaultURL = "https://www.sonarmusic.social/api/public/1673823532092-9337CF3D-5355-4874-8045-97658716824C.png"
     @State var deleteProfile = false
     
     var body: some View {

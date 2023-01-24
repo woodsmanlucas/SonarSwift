@@ -5,7 +5,6 @@
 //  Created by Lucas Johnson on 2020-08-15.
 //  Copyright © 2020 Sonar Music. All rights reserved.
 //
-
 import SwiftUI
 
 struct SplashPage: View {
@@ -71,3 +70,4 @@ struct ContentView_Previews: PreviewProvider {
         SplashPage()
     }
 }
+

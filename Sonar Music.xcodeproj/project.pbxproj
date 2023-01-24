@@ -20,6 +20,7 @@
 		A0768FB3251F9DF9007CB64D /* EditProfileLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0768FB2251F9DF9007CB64D /* EditProfileLocationView.swift */; };
 		A0768FB52520D0F1007CB64D /* DeleteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0768FB42520D0F0007CB64D /* DeleteProfileView.swift */; };
 		A0768FFB2524CEA7007CB64D /* KeyboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0768FFA2524CEA6007CB64D /* KeyboardExtensions.swift */; };
+		A09AFEAE28FE256400A161D0 /* SplashPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A09AFEAD28FE256400A161D0 /* SplashPage.swift */; };
 		A0AA9C5324E8283000DF3A6C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C5224E8283000DF3A6C /* AppDelegate.swift */; };
 		A0AA9C5524E8283000DF3A6C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C5424E8283000DF3A6C /* SceneDelegate.swift */; };
 		A0AA9C5924E8283300DF3A6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A0AA9C5824E8283300DF3A6C /* Assets.xcassets */; };
@@ -28,7 +29,6 @@
 		A0AA9C6724E834B200DF3A6C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C6624E834B200DF3A6C /* LoginView.swift */; };
 		A0AA9C6E24E853BA00DF3A6C /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C6D24E853BA00DF3A6C /* RegisterView.swift */; };
 		A0AA9C7024E8544500DF3A6C /* ClassifiedsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C6F24E8544500DF3A6C /* ClassifiedsView.swift */; };
-		A0AA9C7424EAC2A300DF3A6C /* SplashPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C7324EAC2A300DF3A6C /* SplashPage.swift */; };
 		A0AA9C7824EAC6D500DF3A6C /* JWT.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C7724EAC6D500DF3A6C /* JWT.swift */; };
 		A0AA9C7A24ED790200DF3A6C /* ClassifiedsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C7924ED790200DF3A6C /* ClassifiedsViewModel.swift */; };
 		A0AA9C7E24F400BB00DF3A6C /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0AA9C7D24F400BB00DF3A6C /* ImageLoader.swift */; };
@@ -58,6 +58,7 @@
 		A0768FB2251F9DF9007CB64D /* EditProfileLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileLocationView.swift; sourceTree = "<group>"; };
 		A0768FB42520D0F0007CB64D /* DeleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteProfileView.swift; sourceTree = "<group>"; };
 		A0768FFA2524CEA6007CB64D /* KeyboardExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardExtensions.swift; sourceTree = "<group>"; };
+		A09AFEAD28FE256400A161D0 /* SplashPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashPage.swift; sourceTree = "<group>"; };
 		A0AA9C4F24E8283000DF3A6C /* Sonar Music.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sonar Music.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0AA9C5224E8283000DF3A6C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0AA9C5424E8283000DF3A6C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,7 +69,6 @@
 		A0AA9C6624E834B200DF3A6C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A0AA9C6D24E853BA00DF3A6C /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		A0AA9C6F24E8544500DF3A6C /* ClassifiedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifiedsView.swift; sourceTree = "<group>"; };
-		A0AA9C7324EAC2A300DF3A6C /* SplashPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SplashPage.swift; path = "/Users/lucas/Developer/Sonar Music/Sonar Music/Views/SplashPage.swift"; sourceTree = "<absolute>"; };
 		A0AA9C7724EAC6D500DF3A6C /* JWT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWT.swift; sourceTree = "<group>"; };
 		A0AA9C7924ED790200DF3A6C /* ClassifiedsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassifiedsViewModel.swift; sourceTree = "<group>"; };
 		A0AA9C7D24F400BB00DF3A6C /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -139,7 +139,6 @@
 		A0AA9C6A24E8353400DF3A6C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A0AA9C7324EAC2A300DF3A6C /* SplashPage.swift */,
 				A0AA9C6624E834B200DF3A6C /* LoginView.swift */,
 				A0AA9C6F24E8544500DF3A6C /* ClassifiedsView.swift */,
 				A0AA9C6D24E853BA00DF3A6C /* RegisterView.swift */,
@@ -161,6 +160,7 @@
 				A0768F62251B868E007CB64D /* AddImageToClassified.swift */,
 				A0768FB2251F9DF9007CB64D /* EditProfileLocationView.swift */,
 				A0768FB42520D0F0007CB64D /* DeleteProfileView.swift */,
+				A09AFEAD28FE256400A161D0 /* SplashPage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -254,7 +254,6 @@
 				A0768FB52520D0F1007CB64D /* DeleteProfileView.swift in Sources */,
 				A057498E2507F735000BDF4C /* MessagesView.swift in Sources */,
 				A0AA9C5324E8283000DF3A6C /* AppDelegate.swift in Sources */,
-				A0AA9C7424EAC2A300DF3A6C /* SplashPage.swift in Sources */,
 				A0CD0E33250D20B700868FE8 /* ImagePicker.swift in Sources */,
 				A0768F63251B868E007CB64D /* AddImageToClassified.swift in Sources */,
 				A057498624FAAAE8000BDF4C /* InboxViewModel.swift in Sources */,
@@ -269,6 +268,7 @@
 				A05749B2250A0C63000BDF4C /* ProfileView.swift in Sources */,
 				A0768FB3251F9DF9007CB64D /* EditProfileLocationView.swift in Sources */,
 				A0CD0E3B2512349900868FE8 /* MyClassifiedsView.swift in Sources */,
+				A09AFEAE28FE256400A161D0 /* SplashPage.swift in Sources */,
 				A0768FFB2524CEA7007CB64D /* KeyboardExtensions.swift in Sources */,
 				A0CD0E35250E65F300868FE8 /* EditProfileLocationMap.swift in Sources */,
 				A0AA9C6E24E853BA00DF3A6C /* RegisterView.swift in Sources */,
@@ -423,6 +423,7 @@
 				DEVELOPMENT_TEAM = 8GM5WDQ8YM;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sonar Music/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -443,6 +444,7 @@
 				DEVELOPMENT_TEAM = 8GM5WDQ8YM;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Sonar Music/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

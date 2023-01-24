@@ -36,7 +36,7 @@ class JWT: ObservableObject {
         let semaphore = DispatchSemaphore(value: 0)
         
         // Prepare URL
-        let url = URL(string: "https://www.sonarmusic.social/api/auth/login")
+        let url = URL(string: "http://localhost:4000/api/auth/login")
         guard let requestUrl = url else { return .failure(.url) }
         
         // Prepare URL Request Object
@@ -118,7 +118,7 @@ class JWT: ObservableObject {
         let array: [String] = []
         
            print("\(array)")
-           let url = URL(string: "https://www.sonarmusic.social/api/auth/register")
+           let url = URL(string: "http://localhost:4000/api/auth/register")
            guard let requestUrl = url else { fatalError() }
            
            // Prepare URL Request Object

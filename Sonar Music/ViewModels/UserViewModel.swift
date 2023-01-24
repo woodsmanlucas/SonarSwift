@@ -107,7 +107,7 @@ class UserViewModel: ObservableObject {
         let parameters = "{\n    \"profilePicUrl\":\"\(profilePicUrl)\"\n}"
         let postData = parameters.data(using: .utf8)
 
-        var request = URLRequest(url: URL(string: "https://www.sonarmusic.social/api/users")!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: "http://localhost:4000/api/users")!,timeoutInterval: Double.infinity)
         request.addValue(self.jwt.token!, forHTTPHeaderField: "Authorization")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
@@ -136,7 +136,7 @@ class UserViewModel: ObservableObject {
     
     func GetProfile() {
                 // prepare URL
-                let url = URL(string: ("https://www.sonarmusic.social/api/users/" + userId))
+                let url = URL(string: ("http://localhost:4000/api/users/" + userId))
                guard let requestUrl = url else { fatalError() }
         
         print(self.userId)
@@ -183,7 +183,7 @@ class UserViewModel: ObservableObject {
         guard location != nil else {return}
                 
                 // Prepare URL
-                   let url = URL(string: "https://www.sonarmusic.social/api/users/")
+                   let url = URL(string: "http://localhost:4000/api/users/")
                    guard let requestUrl = url else { fatalError() }
                    
                    // Prepare URL Request Object
@@ -224,7 +224,7 @@ class UserViewModel: ObservableObject {
                 guard userId == jwt.userId else {return}
                 
                 // Prepare URL
-                   let url = URL(string: "https://www.sonarmusic.social/api/users/")
+                   let url = URL(string: "http://localhost:4000/api/users/")
                    guard let requestUrl = url else { fatalError() }
                    
                    // Prepare URL Request Object
@@ -254,7 +254,7 @@ class UserViewModel: ObservableObject {
     }
     
     func GetRatings(){
-                        let url = URL(string: ("https://www.sonarmusic.social/api/ratings/" + userId))
+                        let url = URL(string: ("http://localhost:4000/api/ratings/" + userId))
                    guard let requestUrl = url else { fatalError() }
             
             print(self.jwt.token!)
@@ -298,7 +298,7 @@ class UserViewModel: ObservableObject {
         let sem = DispatchSemaphore.init(value: 0)
         
         
-        let url = URL(string: ("https://www.sonarmusic.social/api/ratings/"))
+        let url = URL(string: ("http://localhost:4000/api/ratings/"))
                guard let requestUrl = url else { fatalError() }
                    
                // Prepare URL Request Object
@@ -347,7 +347,7 @@ class UserViewModel: ObservableObject {
         let session = URLSession(configuration: config)
 
         // Set the URLRequest to POST and to the specified URL
-        var urlRequest = URLRequest(url: URL(string: "https://www.sonarmusic.social/api/upload")!)
+        var urlRequest = URLRequest(url: URL(string: "http://localhost:4000/api/upload")!)
         urlRequest.httpMethod = "POST"
 
         // Set JWT
@@ -391,7 +391,7 @@ class UserViewModel: ObservableObject {
                 print(uploadData)
                 if uploadData.success{
                         print("upload \(uploadData.file)")
-                    self.postProfilePicUrl(profilePicUrl: "https://www.sonarmusic.social/api/public/" + uploadData.file)
+                    self.postProfilePicUrl(profilePicUrl: "http://localhost:4000/api/public/" + uploadData.file)
                 }
             } catch let error as NSError {
                 print("Failed to load: \(error.localizedDescription)")
@@ -409,7 +409,7 @@ class UserViewModel: ObservableObject {
         guard userId == jwt.userId else {return}
         
         // Prepare URL
-           let url = URL(string: "https://www.sonarmusic.social/api/users/")
+           let url = URL(string: "http://localhost:4000/api/users/")
            guard let requestUrl = url else { fatalError() }
            
            // Prepare URL Request Object
