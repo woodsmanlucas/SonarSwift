@@ -6,6 +6,7 @@ The point of the app is for musicans to be able to find bands. The backend can b
 ## Login page
 
 The login page allows the user to login to the app.
+
 <img src="Login.gif" alt= “Login demo” width="200" height="400">
 
 
