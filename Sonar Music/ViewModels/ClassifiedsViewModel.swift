@@ -115,8 +115,8 @@ class ClassifiedsViewModel: ObservableObject {
 
 
             // Convert HTTP Response Data to a String
-            if let data = data {
-                print(data)
+            if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                print(dataString)
             do{
                 let classifiedData = try JSONDecoder().decode(ClassifiedJsonResponse.self, from: data)
                 print(classifiedData.classifieds)

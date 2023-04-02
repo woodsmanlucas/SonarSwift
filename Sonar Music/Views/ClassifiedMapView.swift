@@ -64,16 +64,19 @@ struct ClassifiedsMap: UIViewRepresentable {
     }
     
     func updateUIView(_ view: MKMapView, context: Context){
+        let coordinate = lm.coordinate
         
+        let span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        view.setRegion(region, animated: true)
     }
     
     func makeUIView(context: Context) -> MKMapView {
           let view = MKMapView(frame: .zero)
         view.delegate = context.coordinator
 
+        let coordinate = lm.coordinate
         
-        let coordinate = CLLocationCoordinate2D(
-            latitude: 49.2577143, longitude: -123.1939435)
         let span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
         let region = MKCoordinateRegion(center: coordinate, span: span)
         view.setRegion(region, animated: true)
