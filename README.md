@@ -7,13 +7,13 @@ The point of the app is for musicans to be able to find bands. The backend can b
 
 The login page allows the user to login to the app.
 
-![login demo](Login.gif)
+![login demo](Login.gif | width=100)
 
 ## Register page
 
 The register page allows the user to register a new account.
 
-![register demo](Register.gif)
+![register demo](Register.gif | width=100)
 
 ## Classified map page
 
