@@ -7,6 +7,8 @@ The point of the app is for musicans to be able to find bands. The backend can b
 
 The login page allows the user to login to the app.
 
+![login demo](login.gif)
+
 ## Register page
 
 The register page allows the user to register a new account.
