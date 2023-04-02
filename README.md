@@ -13,6 +13,8 @@ The login page allows the user to login to the app.
 
 The register page allows the user to register a new account.
 
+![register demo](Register.gif)
+
 ## Classified map page
 
 Allows the user to view classifieds near there current location on the map.
