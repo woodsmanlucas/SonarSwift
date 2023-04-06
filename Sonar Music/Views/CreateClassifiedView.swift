@@ -91,53 +91,53 @@ struct CreateClassifiedView: View {
                            })
                        }
                     
-                    if(self.classifieds.images.count > 0){
-                        HStack{
-                            Spacer()
-                        Image(uiImage: self.classifieds.images[imageIndex])
-                            .resizable()
-                        .frame(width: 200, height: 200)
-                            .rotationEffect(.degrees(Double(offset.width / 5)))
-                            .offset(x: offset.width * 5, y: 0)
-                            .opacity(2 - Double(abs(offset.width / 50)))
-                            .gesture(
-                                DragGesture()
-                                    .onChanged {
-                                        gesture in
-                                        self.offset = gesture.translation
-                                    }
-                                .onEnded{
-                                    _ in
-                                    if (abs(self.offset.width) > 100)
-                                        {
-                                            print(self.offset.width)
-                                            if(self.offset.width > 0){
-                                                if(self.imageIndex >= self.classifieds.images.count - 1){
-                                                    self.imageIndex = 0
-                                                    self.offset.width = .zero
-                                                }else{
-                                                    self.imageIndex += 1
-                                                    self.offset.width = .zero
-                                                }
-                                                    
-                                            }else{
-                                                if(self.imageIndex <= 0){
-                                                    self.imageIndex = self.classifieds.images.count - 1
-                                                    self.offset.width = .zero
-
-                                                }else{
-                                                    self.imageIndex -= 1
-                                                    self.offset.width = .zero
-                                                }
-                                            }
-                                            print(self.imageIndex)
-                                    } else {
-                                        self.offset = .zero
-                                        }
-                            })
-                            Spacer()
-                        }
-                   }
+//                    if(self.classifieds.images.count > 0){
+//                        HStack{
+//                            Spacer()
+//                        Image(uiImage: self.classifieds.images[imageIndex])
+//                            .resizable()
+//                        .frame(width: 200, height: 200)
+//                            .rotationEffect(.degrees(Double(offset.width / 5)))
+//                            .offset(x: offset.width * 5, y: 0)
+//                            .opacity(2 - Double(abs(offset.width / 50)))
+//                            .gesture(
+//                                DragGesture()
+//                                    .onChanged {
+//                                        gesture in
+//                                        self.offset = gesture.translation
+//                                    }
+//                                .onEnded{
+//                                    _ in
+//                                    if (abs(self.offset.width) > 100)
+//                                        {
+//                                            print(self.offset.width)
+//                                            if(self.offset.width > 0){
+//                                                if(self.imageIndex >= self.classifieds.images.count - 1){
+//                                                    self.imageIndex = 0
+//                                                    self.offset.width = .zero
+//                                                }else{
+//                                                    self.imageIndex += 1
+//                                                    self.offset.width = .zero
+//                                                }
+//
+//                                            }else{
+//                                                if(self.imageIndex <= 0){
+//                                                    self.imageIndex = self.classifieds.images.count - 1
+//                                                    self.offset.width = .zero
+//
+//                                                }else{
+//                                                    self.imageIndex -= 1
+//                                                    self.offset.width = .zero
+//                                                }
+//                                            }
+//                                            print(self.imageIndex)
+//                                    } else {
+//                                        self.offset = .zero
+//                                        }
+//                            })
+//                            Spacer()
+//                        }
+//                   }
                     
                     if(self.error != nil){
                         Text(self.error!).foregroundColor(.red)

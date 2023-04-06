@@ -6,6 +6,8 @@
 //  Copyright © 2020 Sonar Music. All rights reserved.
 //
 
+// ToDo Fix coordinate out of range on open
+
 import MapKit
 import SwiftUI
 

@@ -5,6 +5,9 @@
 //  Created by Lucas Johnson on 2020-08-15.
 //  Copyright © 2020 Sonar Music. All rights reserved.
 //
+
+// ToDo
+// Add create a post, & my posts
 import SwiftUI
 
 struct SplashPage: View {
@@ -27,7 +30,7 @@ struct SplashPage: View {
                     RectangleView("Classifieds"){ClassifiedsView(viewModel: self.classifieds, jwt: self.jwt)}
                     RectangleView("My Profile"){ProfileView(user: UserViewModel(self.jwt.userId!, jwt: self.jwt))}
                     RectangleView("Create a classified"){CreateClassifiedView(classifieds: self.classifieds, jwt: self.jwt)}
-                    RectangleView("My Classifieds"){MyClassifiedsView(viewModel: self.classifieds)}
+                    RectangleView("My Classifieds"){MyClassifiedsView(viewModel: self.classifieds, jwt: self.jwt)}
                     ZStack{
                         RoundedRectangle(cornerRadius: 10.0).foregroundColor(Color.green)
                         Text("Log out").foregroundColor(Color.white)
@@ -44,7 +47,7 @@ struct SplashPage: View {
                         RectangleView("Classifieds"){ClassifiedsView(viewModel: self.classifieds, jwt: self.jwt)}
                         RectangleView("My Profile"){ProfileView(user: UserViewModel(self.jwt.userId!, jwt: self.jwt))}
                         RectangleView("Create a classified"){CreateClassifiedView(classifieds: self.classifieds, jwt: self.jwt)}
-                        RectangleView("My Classifieds"){MyClassifiedsView(viewModel: self.classifieds)}
+                        RectangleView("My Classifieds"){MyClassifiedsView(viewModel: self.classifieds, jwt: self.jwt)}
                         ZStack{
                             RoundedRectangle(cornerRadius: 10.0).foregroundColor(Color.green)
                             Text("Log out").foregroundColor(Color.white)
