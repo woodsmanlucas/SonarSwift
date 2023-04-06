@@ -25,6 +25,9 @@ Allows the user to view classifieds near there current location on the map.
 
 Allows the user to view a list of classifieds
 
+![classified demo](Classified.gif)
+
+
 ## Inbox page
 
 Allows a user to view there messages and respond
@@ -36,3 +39,5 @@ Allows a user to view and edit there profile
 ## Create a classified page
 
 Allows the user to create a classified.
+
+![create classified demo](CreateClassified.gif)
