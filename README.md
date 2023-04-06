@@ -25,7 +25,7 @@ Allows the user to view classifieds near there current location on the map.
 
 Allows the user to view a list of classifieds
 
-![classified demo](Classified.gif)
+![classified demo](classified.gif)
 
 
 ## Inbox page
