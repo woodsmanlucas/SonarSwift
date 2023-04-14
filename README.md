@@ -19,7 +19,7 @@ The register page allows the user to register a new account.
 
 Allows the user to view classifieds near there current location on the map.
 
-![map demo](map.gif)
+![map demo](map.gif) ![map without giving user location](dontallow.gif)
 
 ## Classified page
 
