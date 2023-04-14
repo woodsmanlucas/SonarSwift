@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A018C88229E93A6900BC0FD7 /* DummyMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A018C88129E93A6900BC0FD7 /* DummyMap.swift */; };
 		A0239EE829DD341100611F26 /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0239EE729DD341100611F26 /* AsyncImage.swift */; };
+		A0239EEA29E11E7200611F26 /* ClassifiedMapRedo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0239EE929E11E7200611F26 /* ClassifiedMapRedo.swift */; };
 		A057498424FAAA2C000BDF4C /* NewConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057498324FAAA2C000BDF4C /* NewConversationView.swift */; };
 		A057498624FAAAE8000BDF4C /* InboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057498524FAAAE8000BDF4C /* InboxViewModel.swift */; };
 		A057498C24FBE472000BDF4C /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A057498B24FBE472000BDF4C /* RectangleView.swift */; };
@@ -45,7 +47,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A018C88129E93A6900BC0FD7 /* DummyMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DummyMap.swift; path = ../../../../DummyMap.swift; sourceTree = "<group>"; };
 		A0239EE729DD341100611F26 /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AsyncImage.swift; path = ../../../../AsyncImage.swift; sourceTree = "<group>"; };
+		A0239EE929E11E7200611F26 /* ClassifiedMapRedo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ClassifiedMapRedo.swift; path = ../../../../ClassifiedMapRedo.swift; sourceTree = "<group>"; };
 		A057498324FAAA2C000BDF4C /* NewConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationView.swift; sourceTree = "<group>"; };
 		A057498524FAAAE8000BDF4C /* InboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewModel.swift; sourceTree = "<group>"; };
 		A057498B24FBE472000BDF4C /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
@@ -161,6 +165,8 @@
 				A0768FB42520D0F0007CB64D /* DeleteProfileView.swift */,
 				A09AFEAD28FE256400A161D0 /* SplashPage.swift */,
 				A0239EE729DD341100611F26 /* AsyncImage.swift */,
+				A0239EE929E11E7200611F26 /* ClassifiedMapRedo.swift */,
+				A018C88129E93A6900BC0FD7 /* DummyMap.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -270,10 +276,12 @@
 				A0CD0E3B2512349900868FE8 /* MyClassifiedsView.swift in Sources */,
 				A09AFEAE28FE256400A161D0 /* SplashPage.swift in Sources */,
 				A0768FFB2524CEA7007CB64D /* KeyboardExtensions.swift in Sources */,
+				A018C88229E93A6900BC0FD7 /* DummyMap.swift in Sources */,
 				A0CD0E35250E65F300868FE8 /* EditProfileLocationMap.swift in Sources */,
 				A0AA9C6E24E853BA00DF3A6C /* RegisterView.swift in Sources */,
 				A057498424FAAA2C000BDF4C /* NewConversationView.swift in Sources */,
 				A0CD0E0F250D0C1200868FE8 /* EditProfilePictureView.swift in Sources */,
+				A0239EEA29E11E7200611F26 /* ClassifiedMapRedo.swift in Sources */,
 				A0CD0E3D251241EF00868FE8 /* RateUser.swift in Sources */,
 				A0CD0E0D250B7A5B00868FE8 /* EditProfileView.swift in Sources */,
 				A0AA9C5524E8283000DF3A6C /* SceneDelegate.swift in Sources */,

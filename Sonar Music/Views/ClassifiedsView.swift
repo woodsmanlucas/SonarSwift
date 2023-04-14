@@ -19,6 +19,9 @@ struct ClassifiedsView: View {
                 NavigationLink(destination: ClassifiedsMapView(classifieds: self.viewModel.classifieds)) {
                     Text("View the Map")
                 }
+//                NavigationLink(destination: ClassifiedMapRedo()) {
+//                    Text("View the other Map")
+//                }
             ForEach(self.viewModel.classifieds, id: \._id, content: {classified in
                 ClassifiedView(classified, jwt: self.jwt)
             })

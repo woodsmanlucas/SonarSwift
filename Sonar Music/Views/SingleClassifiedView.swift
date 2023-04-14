@@ -6,9 +6,6 @@
 //  Copyright © 2020 Sonar Music. All rights reserved.
 //
 
-// ToDo
-// Add view this user
-
 import SwiftUI
 
 struct SingleClassifiedView: View {
@@ -73,10 +70,10 @@ struct SingleClassifiedView: View {
                     }
                     else{
                         NavigationLink(destination: LoginView(jwt: jwt, messageUser: classified.user[0]!._id) ) {
-                            Text("Login to Message this user")
+                            Text("Login to Message or View this user")
                         }
                         NavigationLink(destination: RegisterView(jwt: jwt, messageUser: classified.user[0]!._id)){
-                            Text("Register to Message this user")
+                            Text("Register to Message or View this user")
                         }
                     }
                 }.navigationBarTitle("Classified")

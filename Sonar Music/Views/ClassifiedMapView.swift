@@ -22,17 +22,19 @@ struct Location{
 
 struct ClassifiedsMapView: View {
     var classifieds: [Classified]
+    @ObservedObject var lm = LocationManager()
+
 
     var body: some View {
-        ClassifiedsMap(classifieds: classifieds)
+        ClassifiedsMap(classifieds: classifieds, lm: lm)
     }
 }
 
 
 
 struct ClassifiedsMap: UIViewRepresentable {
-    @ObservedObject var lm = LocationManager()
     var classifieds: [Classified]
+    var lm: LocationManager
     
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
@@ -66,11 +68,6 @@ struct ClassifiedsMap: UIViewRepresentable {
     }
     
     func updateUIView(_ view: MKMapView, context: Context){
-        let coordinate = lm.coordinate
-        
-        let span = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        view.setRegion(region, animated: true)
     }
     
     func makeUIView(context: Context) -> MKMapView {
@@ -84,7 +81,16 @@ struct ClassifiedsMap: UIViewRepresentable {
         view.setRegion(region, animated: true)
         
                 for classified in classifieds {
-                    let coordinates = CLLocationCoordinate2D(latitude: CLLocationDegrees(classified.user[0]?.lat ??  49.2577143),longitude: CLLocationDegrees(classified.user[0]?.lng ?? -123.1939435))
+                    var lat: Double, lng: Double
+                    
+                    if(classified.user.count > 0){
+                        lat = classified.user[0]?.lat ?? 47.533272
+                        lng = classified.user[0]?.lng ?? -122.035332
+                    }else{
+                        lat = 47.533272
+                        lng = -122.035332
+                    }
+                    let coordinates = CLLocationCoordinate2D(latitude: CLLocationDegrees(lat),longitude: CLLocationDegrees(lng))
                     let annotation = MKPointAnnotation()
                     annotation.coordinate = coordinates
                     annotation.title = classified.title
