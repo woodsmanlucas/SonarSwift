@@ -73,11 +73,27 @@ struct MyClassified: Codable {
 
 struct User: Codable {
     var _id: String
+    var experience: [Double]
+    var instrumentsPlayed: [String]
+    var posts: [String]
+    var inbox: [String]
+    var classifiedAdsById: [String]
+    var links: [String]
+    var gigsById: [String]
+    var badgesById: [String]
+    var pendingFriends: [String]
+    var friends: [String]
+    var following: [String]
+    var followers: [String]
+    var genre: [String]
     var username: String
     var firstName: String
     var lastName: String
-    var lat: Float
-    var lng: Float
+    var userType: String
+    var lat: Double?
+    var lng: Double?
+    var date: Int
+    var __v: Int
 }
 
 class ClassifiedsViewModel: ObservableObject {
@@ -97,43 +113,54 @@ class ClassifiedsViewModel: ObservableObject {
 
     func GetClassifieds() {
         // Prepare URL
-        let url = URL(string: "https://www.sonarmusic.social/api/classifieds")
-        guard let requestUrl = url else { fatalError() }
-    
-        // Prepare URL Request Object
-        let request = URLRequest(url: requestUrl)
- 
-    
-        // Perform HTTP Request
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+        let url = URL(string: "http://localhost:4000/api/classifieds")
         
-            // Check for Error
-            if let error = error {
-                print("Error took place \(error)")
-                return
-            }
- 
-            // Convert HTTP Response Data to a String
-            if let data = data {
-
-            do{
-                let classifiedData = try JSONDecoder().decode(ClassifiedJsonResponse.self, from: data)
-                print(classifiedData.classifieds)
-                if classifiedData.success{
-                    DispatchQueue.main.async {
-                        self.classifieds = classifiedData.classifieds
-                        print("classified \(self.classifieds)")
-
-                    }
+        if(url != nil){
+            Task {
+                let (data, _) = try await URLSession.shared.data(from: url!)
+                let decodedResponse = try? JSONDecoder().decode(ClassifiedJsonResponse.self, from: data)
+                if(decodedResponse?.classifieds != nil){
+                    classifieds = decodedResponse!.classifieds
                 }
-            } catch let error as NSError {
-                print("Failed to load: \(error.localizedDescription)")
             }
-
         }
-
-    }
-    task.resume()
+//        guard let requestUrl = url else { fatalError() }
+//
+//        // Prepare URL Request Object
+//        let request = URLRequest(url: requestUrl)
+//
+//
+//        // Perform HTTP Request
+//        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+//
+//            // Check for Error
+//            if let error = error {
+//                print("Error took place \(error)")
+//                return
+//            }
+//
+//
+//            // Convert HTTP Response Data to a String
+//            if let data = data, let dataString = String(data: data, encoding: .utf8) {
+//                print(dataString)
+//            do{
+//                let classifiedData = try JSONDecoder().decode(ClassifiedJsonResponse.self, from: data)
+//                print(classifiedData.classifieds)
+//                if classifiedData.success{
+//                    DispatchQueue.main.async {
+//                        self.classifieds = classifiedData.classifieds
+//                        print("classified \(self.classifieds)")
+//
+//                    }
+//                }
+//            } catch let error as NSError {
+//                print("Failed to load: \(error.localizedDescription)")
+//            }
+//
+//        }
+//
+//    }
+//    task.resume()
     }
     
     func CreateClassified(_ jwtToken: String, title: String, description: String, type: String, price: Double?, tags: [String]) -> Result<String?, NetworkError>{
@@ -148,7 +175,7 @@ class ClassifiedsViewModel: ObservableObject {
                let array: [String] = []
                
                   print("\(array)")
-                  let url = URL(string: "https://www.sonarmusic.social/api/classifieds/user")
+                  let url = URL(string: "http://localhost:4000/api/classifieds/user")
                   guard let requestUrl = url else { fatalError() }
                   
                   // Prepare URL Request Object
@@ -160,10 +187,13 @@ class ClassifiedsViewModel: ObservableObject {
                
                   // HTTP Request Parameters which will be sent in HTTP Request Body
         let postString: String
+        
+        let imageString = imageURLs.joined(separator: " ")
+        
         if(price != nil){
-            postString = "title=\(title)&description=\(description)&pictures=\(imageURLs)&tags=\(tags)&type=\(type)&price=\(price!)";
+            postString = "title=\(title)&description=\(description)&pictures=\(imageString)&tags=\(tags)&type=\(type)&price=\(price!)";
         }else{
-            postString = "title=\(title)&description=\(description)&tags=\(tags)&pictures=\(imageURLs)&type=\(type)"
+            postString = "title=\(title)&description=\(description)&tags=\(tags)&pictures=\(imageString)&type=\(type)"
         }
         print(postString)
 
@@ -222,7 +252,7 @@ class ClassifiedsViewModel: ObservableObject {
     
     func getMyClassifeds(){
         // Prepare URL
-        let url = URL(string: "https://www.sonarmusic.social/api/classifieds/userAd/" + self.jwt.userId!)
+        let url = URL(string: "http://localhost:4000/api/classifieds/userAd/" + self.jwt.userId!)
                guard let requestUrl = url else { fatalError() }
            
                // Prepare URL Request Object
@@ -263,7 +293,7 @@ class ClassifiedsViewModel: ObservableObject {
         print(classifiedId)
         
         // Prepare URL
-        let url = URL(string: "https://www.sonarmusic.social/api/classifieds/user/" + classifiedId)
+        let url = URL(string: "http://localhost:4000/api/classifieds/user/" + classifiedId)
         guard let requestUrl = url else { fatalError() }
            
         // Prepare URL Request Object
@@ -306,7 +336,7 @@ class ClassifiedsViewModel: ObservableObject {
         let session = URLSession(configuration: config)
 
         // Set the URLRequest to POST and to the specified URL
-        var urlRequest = URLRequest(url: URL(string: "https://www.sonarmusic.social/api/upload")!)
+        var urlRequest = URLRequest(url: URL(string: "http://localhost:4000/api/upload")!)
         urlRequest.httpMethod = "POST"
 
         // Set JWT
@@ -353,10 +383,12 @@ class ClassifiedsViewModel: ObservableObject {
                     if (uploadData.file != "" && image.pngData() != nil){
                         DispatchQueue.main.async {
                             self.images.append(image)
-                            self.imageURLs.append("https://www.sonarmusic.social/api/public/" + uploadData.file)
-                        }
-                    }
 
+                        }
+                        self.imageURLs.append("http://localhost:4000/" + uploadData.file)
+                    }
+                    
+                    print("Image Urls:")
                     print(self.imageURLs)
                 }
             } catch let error as NSError {

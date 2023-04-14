@@ -12,6 +12,8 @@ import MapKit
 class LocationManager: NSObject, ObservableObject {
     private let locationManager = CLLocationManager()
     @Published var location: CLLocation?
+    @Published var coordinate = CLLocationCoordinate2D(
+        latitude: 49.2577143, longitude: -123.1939435)
     
     override init() {
       super.init()
@@ -30,7 +32,7 @@ extension LocationManager: CLLocationManagerDelegate {
         guard let location = locations.last else{
             return
         }
-        
         self.location = location
+        self.coordinate = location.coordinate
     }
 }

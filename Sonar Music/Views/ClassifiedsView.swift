@@ -19,6 +19,9 @@ struct ClassifiedsView: View {
                 NavigationLink(destination: ClassifiedsMapView(classifieds: self.viewModel.classifieds)) {
                     Text("View the Map")
                 }
+//                NavigationLink(destination: ClassifiedMapRedo()) {
+//                    Text("View the other Map")
+//                }
             ForEach(self.viewModel.classifieds, id: \._id, content: {classified in
                 ClassifiedView(classified, jwt: self.jwt)
             })
@@ -43,7 +46,6 @@ struct ClassifiedView: View {
         }
     
     var body: some View {
-        guard let url = pictureUrl else {
             return AnyView(NavigationLink(destination: SingleClassifiedView(classified, jwt: jwt)){
                 ZStack{
             RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
@@ -54,22 +56,5 @@ struct ClassifiedView: View {
                 }
             }
             .buttonStyle(PlainButtonStyle()).frame(width: 350, height: 150))
-        }
-        
-        return AnyView(
-            NavigationLink(destination: SingleClassifiedView(classified, jwt: jwt)){
-                ZStack{
-            RoundedRectangle(cornerRadius: 10.0).stroke(lineWidth: 2)
-            
-            VStack{
-                Text(classified.title).bold()
-                Text(classified.description)
-                    AsyncImage(
-                        url: url
-                    ).aspectRatio(contentMode: .fit)
-            }
-                }
-            }.buttonStyle(PlainButtonStyle()).frame(width: 350, height: 150)
-        )
     }
 }

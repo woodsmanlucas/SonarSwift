@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @ObservedObject var user: UserViewModel
-    let defaultURL = "https://www.sonarmusic.social/profile.png"
+    let defaultURL = "https://www.sonarmusic.social/api/public/1673823532092-9337CF3D-5355-4874-8045-97658716824C.png"
     @State var deleteProfile = false
     
     var body: some View {
@@ -18,22 +18,22 @@ struct ProfileView: View {
         ScrollView{
             Spacer()
             if self.user.profile.count > 0 {
-                if self.user.profile[0].profilePicUrl != nil {
-                AsyncImage(
-                    url: self.user.profile[0].profilePicUrl!
-                    )
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 100, height: 100)
-                    .clipped()
-                    .cornerRadius(100)
-
-            }
-            else {
-                                AsyncImage(
-                    url: self.defaultURL
-                ).aspectRatio(contentMode: .fit)
-                .frame(width:100, height: 100)
-            }
+//                if self.user.profile[0].profilePicUrl != nil {
+////                AsyncImage(
+////                    url: self.user.profile[0].profilePicUrl!
+////                    )
+////                    .aspectRatio(contentMode: .fill)
+////                    .frame(width: 100, height: 100)
+////                    .clipped()
+////                    .cornerRadius(100)
+//
+//            }
+//            else {
+////                                AsyncImage(
+////                    url: self.defaultURL
+////                ).aspectRatio(contentMode: .fit)
+////                .frame(width:100, height: 100)
+//            }
             if(user.jwt.userId == user.userId){
                 NavigationLink(destination: EditProfilePictureView(profile: user)){
                     Text("Edit Your Picture")

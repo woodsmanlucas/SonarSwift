@@ -6,6 +6,8 @@
 //  Copyright © 2020 Sonar Music. All rights reserved.
 //
 
+// ToDo close on complete
+
 import SwiftUI
 
 struct AddImageToClassified: View {
@@ -43,8 +45,8 @@ struct AddImageToClassified: View {
                    }
                 
                     Button(action: {
-                        self.classifieds.uploadPhoto(self.image, jwt: self.jwt)
-    //                    self.presentationMode.wrappedValue.dismiss()
+                            self.classifieds.uploadPhoto(self.image, jwt: self.jwt)
+                            self.presentationMode.wrappedValue.dismiss()
                         }) {
                                    HStack {
                                        Text("Upload as my photo")

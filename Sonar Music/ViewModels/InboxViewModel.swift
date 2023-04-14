@@ -57,7 +57,7 @@ class InboxViewModel: ObservableObject {
     
     func getConversations() {
                 // Prepare URL
-               let url = URL(string: "https://www.sonarmusic.social/api/inbox/")
+               let url = URL(string: "http://localhost:4000/api/inbox/")
                guard let requestUrl = url else { fatalError() }
            
                // Prepare URL Request Object
@@ -110,7 +110,7 @@ class InboxViewModel: ObservableObject {
         let parameters = "{\n    \"receiverId\": \"\(receiverId)\",\n    \"subject\": \"\(subject)\"\n}"
         let postData = parameters.data(using: .utf8)
 
-        var request = URLRequest(url: URL(string: "https://www.sonarmusic.social/api/inbox/")!,timeoutInterval: Double.infinity)
+        var request = URLRequest(url: URL(string: "http://localhost:4000/api/inbox/")!,timeoutInterval: Double.infinity)
         request.addValue(self.jwt.token!, forHTTPHeaderField: "Authorization")
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
@@ -158,7 +158,7 @@ class InboxViewModel: ObservableObject {
 
         
                         // Prepare URL
-               let url = URL(string: "https://www.sonarmusic.social/api/inbox/conversation/" + conversationId)
+               let url = URL(string: "http://localhost:4000/api/inbox/conversation/" + conversationId)
                guard let requestUrl = url else { fatalError() }
            
                // Prepare URL Request Object
@@ -205,7 +205,7 @@ class InboxViewModel: ObservableObject {
     
     func sendMessage(otherUser: String, newMessage: String, conversationId: String){
                         // Prepare URL
-               let url = URL(string: "https://www.sonarmusic.social/api/messages/create/" + conversationId)
+               let url = URL(string: "http://localhost:4000/api/messages/create/" + conversationId)
                guard let requestUrl = url else { fatalError() }
            
                // Prepare URL Request Object

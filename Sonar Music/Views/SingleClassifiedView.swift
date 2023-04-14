@@ -22,15 +22,15 @@ struct SingleClassifiedView: View {
         }
     
     var body: some View {
-        guard let url = pictureUrl else {
-                   return AnyView(
-                   VStack{
-                       Text(classified.title).bold()
-                        Text(classified.description)
+        guard let urlString = pictureUrl else {
+            return AnyView(
+                VStack{
+                    Text(classified.title).bold()
+                    Text(classified.description)
                     if jwt.token != nil {
-//                    if false {
+                        //                    if false {
                         NavigationLink(destination: NewConversationView(userId: classified.user[0]!._id, inbox: InboxViewModel(jwt: jwt))){
-                        Text("Message this user")
+                            Text("Message this user")
                         }
                         
                         NavigationLink(destination: ProfileView(user: UserViewModel(classified.user[0]!._id, jwt: jwt))){
@@ -40,40 +40,69 @@ struct SingleClassifiedView: View {
                     else{
                         NavigationLink(destination: LoginView(jwt: jwt, messageUser: classified.user[0]!._id) ) {
                             Text("Login to Message this user")
-                            }
+                        }
                         NavigationLink(destination: RegisterView(jwt: jwt, messageUser: classified.user[0]!._id)){
-                          Text("Register to Message this user")
+                            Text("Register to Message this user")
                         }
                     }
-                       }.navigationBarTitle("Classified")            )
-               }
-               
-               return AnyView(
-                   VStack{
-                       Text(classified.title).bold()
-                       Text(classified.description)
-                           AsyncImage(
-                               url: url
-                           ).aspectRatio(contentMode: .fit)
-                                       if jwt.token != nil {
-                   //                    if false {
-                                           NavigationLink(destination: NewConversationView(userId: classified.user[0]!._id, inbox: InboxViewModel(jwt: jwt))){
-                                           Text("Message this user")
-                                           }
-                                           
-                                           NavigationLink(destination: ProfileView(user: UserViewModel(classified.user[0]!._id, jwt: jwt))){
-                                               Text("View this users profile")
-                                           }
-                                       }
-                                       else{
-                                           NavigationLink(destination: LoginView(jwt: jwt, messageUser: classified.user[0]!._id) ) {
-                                               Text("Login to Message this user")
-                                               }
-                                           NavigationLink(destination: RegisterView(jwt: jwt, messageUser: classified.user[0]!._id)){
-                                             Text("Register to Message this user")
-                                           }
-                                       }
-                   }.navigationBarTitle("Classified")
-               )
+                }.navigationBarTitle("Classified")            )
+        }
+        
+        let url = URL(string: urlString)
+        
+        if(url != nil){
+            
+            return AnyView(
+                VStack{
+                    Text(classified.title).bold()
+                    Text(classified.description)
+                    AsyncImage(
+                        url: url!
+                    ).aspectRatio(contentMode: .fit)
+                    if jwt.token != nil {
+                        NavigationLink(destination: NewConversationView(userId: classified.user[0]!._id, inbox: InboxViewModel(jwt: jwt))){
+                            Text("Message this user")
+                        }
+                        
+                        NavigationLink(destination: ProfileView(user: UserViewModel(classified.user[0]!._id, jwt: jwt))){
+                            Text("View this users profile")
+                        }
+                    }
+                    else{
+                        NavigationLink(destination: LoginView(jwt: jwt, messageUser: classified.user[0]!._id) ) {
+                            Text("Login to Message or View this user")
+                        }
+                        NavigationLink(destination: RegisterView(jwt: jwt, messageUser: classified.user[0]!._id)){
+                            Text("Register to Message or View this user")
+                        }
+                    }
+                }.navigationBarTitle("Classified")
+            )
+        } else {
+            return AnyView(
+
+            VStack{
+                Text(classified.title).bold()
+                Text(classified.description)
+                if jwt.token != nil {
+                    NavigationLink(destination: NewConversationView(userId: classified.user[0]!._id, inbox: InboxViewModel(jwt: jwt))){
+                        Text("Message this user")
+                    }
+                    
+                    NavigationLink(destination: ProfileView(user: UserViewModel(classified.user[0]!._id, jwt: jwt))){
+                        Text("View this users profile")
+                    }
+                }
+                else{
+                    NavigationLink(destination: LoginView(jwt: jwt, messageUser: classified.user[0]!._id) ) {
+                        Text("Login to Message this user")
+                    }
+                    NavigationLink(destination: RegisterView(jwt: jwt, messageUser: classified.user[0]!._id)){
+                        Text("Register to Message this user")
+                    }
+                }
+            }.navigationBarTitle("Classified")
+            )
+        }
     }
 }
